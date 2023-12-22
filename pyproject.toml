@@ -13,8 +13,10 @@ description = "actionkit-templates allows you to view your ActionKit templates l
 dependencies = [
     "django==3.2.6",
     "requests>=2.22.0",
+    "pytest-django",
     "django_extensions",
     "werkzeug",
+    "ruff"
 ]
 keywords = ["actionkit"]
 classifiers = [
@@ -39,3 +41,18 @@ test = ["selenium>=3.8.0", "pyvirtualdisplay"]
 
 [tool.setuptools.packages]
 find = { namespaces = false }
+
+[tool.ruff]
+fix = true
+select = ["ALL"]
+per-file-ignores = { "tests/**/*.py" = [
+    "S101",
+    "D100",
+    "D103",
+    "ANN201",
+    "ANN001",
+    "INP001",
+] }
+
+[tool.ruff.pydocstyle]
+convention = "google"

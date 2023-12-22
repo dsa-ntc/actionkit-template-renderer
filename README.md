@@ -8,6 +8,10 @@
 
 ## Quickstart
 
+Use the following commands to try installing and running this application *in a separate project*, such as when you need to extend the app with your own branding.
+
+> To make contributions and changes to the way the app runs under the hood, skip to [Developing](#developing) and work directly from the source code in this repository!
+
 ```console
 $ mkdir myproject && cd myproject
 $ python --version
@@ -27,13 +31,7 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-## Developing
 
-Clone the repo and install the project package and all dependencies in editable mode:
-
-  ```
-  pip install -e .
-  ```
 
 ## Customize
 
@@ -100,6 +98,14 @@ In the occasional moment when you are developing without an internet connection 
 ```
 
 In that situation, if you set STATIC_FALLBACK to a directory where, e.g. `jquery.min.js` is present, then it will look for all the internet-external files in that directory. Note that this only works with `load_js` and `load_css` template tags.
+
+## Developing
+
+Clone the repo and install the project package and all dependencies in editable mode:
+
+  ```
+  pip install -e .
+  ```
 
 Adding Tests
 ============
