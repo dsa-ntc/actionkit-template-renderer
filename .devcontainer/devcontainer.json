@@ -19,7 +19,8 @@
 				"GitHub.vscode-github-actions",
 				"tamasfe.even-better-toml",
 				"esbenp.prettier-vscode",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"seatonjiang.gitmoji-vscode"
 			]
 		},
 		"settings": {

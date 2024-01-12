@@ -1,0 +1,19 @@
+name: "Gitmoji Changelog"
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: "Generate Changelog"
+        uses: "sercanuste/gitmoji-changelog-action@v1"
+          add_author: true
