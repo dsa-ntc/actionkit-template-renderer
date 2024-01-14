@@ -134,7 +134,7 @@ Note that Actionkit does not allow any create/update/delete transactions outside
 We do not need to run migrations because of this (doing so will result in an error).
 
 Also note the following terminology:
-"project" refers to `dsa_actionkit`, which will control the apps within the project
-"app" refers to individual modules within `dsa_actionkit`. This includes `mydsa` and its contents. Usually, apps will be split out by their purpose within the project. For example, a project may have apps for Authentication, Payments System, Emails and Notifications, etc.
+1. "project" refers to `dsa_actionkit`, which will control the apps within the project
+2. "app" refers to individual modules within `dsa_actionkit`. This includes `mydsa` and its contents. Usually, apps will be split out by their purpose within the project. For example, a project may have apps for Authentication, Payments System, Emails and Notifications, etc.
 
 I would like to split `mydsa` into multiple apps, organized by their purpose within our project. We can organize this as we start to figure out what our views will look like. For now, `mydsa` just holds all of the tables from Robotic Dogs.
