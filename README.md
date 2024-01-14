@@ -123,3 +123,18 @@ Extra contexts
 If you make a context that's not covered already, please contribute with a patch to
 [dsa_actionkit/contexts/](https://github.com/dsa-ntc/actionkit-templates/tree/master/dsa_actionkit/contexts) Note that these are also useful to browse to see
 what variables you can access from a particular page context.
+
+Using Django
+--------------
+
+In [settings.py](./dsa_actionkit/settings.py), go to DATABASES and enter your Username and Password (will eventually need to have these creds pulled from a secure location, but I only have access to my own personal creds).
+You can confirm that Django is able to access the database by running this command from within the dsa_actionkit folder: `python manage.py dbshell`
+Next, to query from the database, you can run commands from `python manage.py shell` and import any models listed in [models.py](./dsa_actionkit/mydsa/models.py)
+Note that Actionkit does not allow any create/update/delete transactions outside of Actionkit.
+We do not need to run migrations because of this (doing so will result in an error).
+
+Also note the following terminology:
+"project" refers to `dsa_actionkit`, which will control the apps within the project
+"app" refers to individual modules within `dsa_actionkit`. This includes `mydsa` and its contents. Usually, apps will be split out by their purpose within the project. For example, a project may have apps for Authentication, Payments System, Emails and Notifications, etc.
+
+I would like to split `mydsa` into multiple apps, organized by their purpose within our project. We can organize this as we start to figure out what our views will look like. For now, `mydsa` just holds all of the tables from Robotic Dogs.
