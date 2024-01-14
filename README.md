@@ -129,7 +129,7 @@ Using Django
 
 In [settings.py](./dsa_actionkit/dsa_actionkit/settings.py), go to DATABASES and enter your Username and Password (will eventually need to have these creds pulled from a secure location, but I only have access to my own personal creds).
 You can confirm that Django is able to access the database by running this command from within the dsa_actionkit folder: `python manage.py dbshell`
-Next, to query from the database, you can run commands from `python manage.py shell` and import any models listed in [models.py](./dsa_actionkit/dsa_actionkit/mydsa/models.py)
+Next, to query from the database, you can run commands from `python manage.py shell` and import any models listed in [models.py](./dsa_actionkit/mydsa/models.py)
 Note that Actionkit does not allow any create/update/delete transactions outside of Actionkit.
 We do not need to run migrations because of this (doing so will result in an error).
 
