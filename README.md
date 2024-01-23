@@ -1,16 +1,54 @@
-# ActionKit Templates
+# ActionKit Template Runner
 ---
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dsa-ntc/actionkit-templates)
 
 > This is a public fork of the [MoveOnOrg/actionkit-templates](https://github.com/MoveOnOrg/actionkit-templates) repository, reproduced with permission via MIT License. All code contained is open-source. Contributors MUST abide by the DSA NTC's [Code of Conduct](https://docs.google.com/document/d/12JOWHitVxx8ZR15Ea46JrD1fTpqO2xhBzag1cHRmFwE/edit?usp=sharing).
 
+## Getting Started
 
-## Quickstart
+There are two separate quickstart instructions depending on what you're trying to do.
 
-Use the following commands to try installing and running this application *in a separate project*, such as when you need to extend the app with your own branding.
+- [I want to render ActionKit templates with a simple shell command]
+- [I want to work on this project's internals]
 
-> To make contributions and changes to the way the app runs under the hood, skip to [Developing](#developing) and work directly from the source code in this repository!
+## What is this repo?
+
+As mentioned in the note above, this repo is a fork of MoveOn.org's `actionkit-templates` repo. This repo has served as the baseline thus far for DSA staff and volunteers to render [ActionKit Templates](https://docs.actionkit.com/docs/manual/developer/templates_index.html) in a local development environment. However, that repo is no longer maintained and contains severe deprecations. Additionally, the unconventional project layout of the MoveOn repo obfuscates the ways that the package acts like a Django project and is inaccessible to many Python/Django developers.
+
+Thus, this repo has *two primary aims*:
+
+1) Replace the primary functionality of the MoveOn repo by reproducing its internals and upgrading key dependencies to stable and secure version. In other words, this repo will:
+  - Publish a package to PyPI ([`dsa-actionkit`](https://pypi.org/project/dsa-actionkit/)), making the template runner *pip-installable*.
+  - Allow users to view custom templates connected to a Django server with the shell command (optionally defining the host/port if necessary in the customary Django way):
+  ```shell
+  aktemplates runserver
+  ```
+
+2) Provide an environment that can *fully take advantage* of Django niceties by giving us full control over the server. While the backend may not necessarily be a one-to-one match to ActionKit's, we can replicate more than enough functionality using ActionKit's public documentation to build a robust template engine that mimics ActionKit's in the most important ways. For example this will allow developers to have:
+
+- Complete control over a User model that enables the replication and testing of key authentication workflows.
+- Django's test runner, which can test functionality with custom browser contexts.
+- The ability to permutate many datasets and configurations with the template runner and build user-interfacing testing tools on top of them
+- and much more
+
+Importantly, all work in this repository is *fully public and open-sourced*, lowering the barrier to entry for developers who may not have privileged access to the `dsausa` GitHub Organization.  Accordingly, developers should take extra caution to avoid committing sensitive information to the repo.
+
+### How does this repo relate to the `dsausa/actionkit-templates` repo?
+
+Right now, the `dsausa/actionkit-templates` repo -- the repo that serves the templates live to production -- still uses the MoveOn repo upstream. At some point, when development is considered stable, the `dsausa/actionkit-templates` repo should use this project as its upstream template runner instead; obviously this change would fall fully under staff discretion.
+
+If you are interested in directly developing *templates* at the point closest to production, you should obtain access to the `dsausa` repo and submit work against the `staging` branch. If you're interested in developing robust infrastructure around the ActionKit Templates project, including but not limited to the Django backend work, you can do everything you need to do solely within this project.
+
+At some point, it might be preferable to link certain folders (such as the `template_sets` directory) via git or other methods to keep *template* work in-sync. For now, this repository contains example data inherited from the MoveOn repo. More DSA-specific example templates can and should be loaded after they are appropriately audited for sensitive information.
+
+## Getting started using the `dsa-actionkit` package as a template runner
+
+Anyone may install the command-line utility published by this repo by running `pip install dsa-actionkit` or by declaring `dsa-actionkit` in your project's `pyproject.toml` or `requirement.txt` as appropriate to your chosen installation setup/package manager.
+
+> To make contributions and changes to the way this app runs under the hood, skip to [Developing](#developing) and work directly from the source code in this repository!
+
+Here's an example set of commands that includes creating a directory for the project and a virtual environment to install `dsa-actionkit` in:
 
 ```console
 $ mkdir myproject && cd myproject
@@ -31,9 +69,9 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-
-
 ## Customize
+
+> Note: This section copied from MoveOn, elaboration/clarification/condensation warranted
 
 1. Put your actionkit templates in a directory called `template_set` (configurable)
 2. Put your static assets (javascript, css) in a directory called `static` (configurable)
@@ -99,42 +137,16 @@ In the occasional moment when you are developing without an internet connection 
 
 In that situation, if you set STATIC_FALLBACK to a directory where, e.g. `jquery.min.js` is present, then it will look for all the internet-external files in that directory. Note that this only works with `load_js` and `load_css` template tags.
 
-## Developing
+## Contributing
 
-Clone the repo and install the project package and all dependencies in editable mode:
+The easiest way to set up your development environment is to use our Codespaces/Dev Container setup. If you prefer to manually install your dependencies, as of right now this repo supports Python 3.11 and you may need to configure a few environment variables (inspect the devcontainer.json for clues)
+
+In the project root, create a virtual environment and install the project package and all dependencies in editable mode:
 
   ```
+  python -m venv .venv
+  source .venv/bin/activate
   pip install -e .
   ```
 
-Adding Tests
-============
-
-See documentation in [TESTING.md](./TESTING.md)
-
-Template Tags
--------------
-
-Usually, these are easy to add here [dsa_actionkit/templatetags/actionkit_tags.py](https://github.com/dsa-ntc/actionkit-templates/blob/master/dsa_actionkit/templatetags/actionkit_tags.py) Actionkit provides implementations [here](https://roboticdogs.actionkit.com/docs/manual/guide/customtags.html)
-
-Extra contexts
---------------
-
-If you make a context that's not covered already, please contribute with a patch to
-[dsa_actionkit/contexts/](https://github.com/dsa-ntc/actionkit-templates/tree/master/dsa_actionkit/contexts) Note that these are also useful to browse to see
-what variables you can access from a particular page context.
-
-Using Django
---------------
-
-In [settings.py](./dsa_actionkit/dsa_actionkit/settings.py), go to DATABASES and enter your Username and Password (will eventually need to have these creds pulled from a secure location, but I only have access to my own personal creds).
-You can confirm that Django is able to access the database by running this command from within the dsa_actionkit folder: `python manage.py dbshell`
-Next, to query from the database, you can run commands from `python manage.py shell` and import any models listed in [models.py](./dsa_actionkit/mydsa/models.py)
-Note that Actionkit does not allow any create/update/delete transactions outside of Actionkit.
-We do not need to run migrations because of this (doing so will result in an error).
-
-Also note the following terminology:
-1. "project" refers to `dsa_actionkit`, which will control the apps within the project
-2. "app" refers to individual modules within `dsa_actionkit`. This includes `mydsa` and its contents. Usually, apps will be split out by their purpose within the project. For example, a project may have apps for Authentication, Payments System, Emails and Notifications, etc.
-
-I would like to split `mydsa` into multiple apps, organized by their purpose within our project. We can organize this as we start to figure out what our views will look like. For now, `mydsa` just holds all of the tables from Robotic Dogs.
+For more info about how the project layout and how it works visit [CONTRIBUTING.md](./CONTRIBUTING.md)
