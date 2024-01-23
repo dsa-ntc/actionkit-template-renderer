@@ -61,12 +61,16 @@ WSGI_APPLICATION = "dsa_actionkit.wsgi.application"
 
 DATABASES = {
     "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite",
+    },
+    "roboticdogs": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "ak_roboticdogs",
-        "USER": "USERNAME",
-        "PASSWORD": "ROBOTIC_DOGS_SECRET_KEY",
+        "USER": os.getenv("ROBOTIC_DOGS_USER"),
+        "PASSWORD": os.getenv("ROBOTIC_DOGS_PASSWORD"),
         "HOST": "roboticdogs.client-db.actionkit.com",
-    }
+    },
 }
 
 
@@ -133,7 +137,7 @@ TEMPLATES = [
         "DIRS": DIR_TEMPLATES,
         "APP_DIRS": True,
         "OPTIONS": {
-            "builtins": ["templatetags.actionkit_tags"],
+            "builtins": ["mydsa.templatetags.actionkit_tags"],
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",

@@ -9,7 +9,8 @@ from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.static import serve
-from moveon_fakeapi import mo_event_data
+
+from dsa_actionkit.moveon_fakeapi import mo_event_data
 
 
 def _get_context_data(request, name=None, page=None, use_referer=False):
