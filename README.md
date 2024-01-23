@@ -1,54 +1,53 @@
 # ActionKit Template Runner
 ---
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dsa-ntc/actionkit-templates)
-
 > This is a public fork of the [MoveOnOrg/actionkit-templates](https://github.com/MoveOnOrg/actionkit-templates) repository, reproduced with permission via MIT License. All code contained is open-source. Contributors MUST abide by the DSA NTC's [Code of Conduct](https://docs.google.com/document/d/12JOWHitVxx8ZR15Ea46JrD1fTpqO2xhBzag1cHRmFwE/edit?usp=sharing).
 
 ## Getting Started
 
 There are two separate quickstart instructions depending on what you're trying to do.
 
-- [I want to render ActionKit templates with a simple shell command]
-- [I want to work on this project's internals]
+- [I want to render ActionKit templates with a simple shell command](#using-the-dsa-actionkit-package-as-a-template-runner)
+- [I want to work on this project's internals](#contributing)
 
 ## What is this repo?
 
-As mentioned in the note above, this repo is a fork of MoveOn.org's `actionkit-templates` repo. This repo has served as the baseline thus far for DSA staff and volunteers to render [ActionKit Templates](https://docs.actionkit.com/docs/manual/developer/templates_index.html) in a local development environment. However, that repo is no longer maintained and contains severe deprecations. Additionally, the unconventional project layout of the MoveOn repo obfuscates the ways that the package acts like a Django project and is inaccessible to many Python/Django developers.
+As mentioned in the note above, this repo is a fork of MoveOn.org's [`actionkit-templates` repo](https://github.com/MoveOnOrg/actionkit-templates). MoveOn's repo has served as the baseline thus far for DSA staff and volunteers to render [ActionKit Templates](https://docs.actionkit.com/docs/manual/developer/templates_index.html) in a local development environment. However, that repo is no longer maintained and contains severe deprecations. Additionally, the unconventional project layout of the MoveOn repo obfuscates the ways that the package acts like a Django project and thus further modifications are inaccessible to many Python/Django developers.
 
 Thus, this repo has *two primary aims*:
 
-1) Replace the primary functionality of the MoveOn repo by reproducing its internals and upgrading key dependencies to stable and secure version. In other words, this repo will:
-  - Publish a package to PyPI ([`dsa-actionkit`](https://pypi.org/project/dsa-actionkit/)), making the template runner *pip-installable*.
-  - Allow users to view custom templates connected to a Django server with the shell command (optionally defining the host/port if necessary in the customary Django way):
-  ```shell
-  aktemplates runserver
-  ```
+1) Replace the primary functionality of the MoveOn repo by reproducing its internals and upgrading key dependencies to stable and secure versions. In other words, this repo will:
+
+   - Publish a package to PyPI ([`dsa-actionkit`](https://pypi.org/project/dsa-actionkit/)), making the template runner *pip-installable*.
+   - Allow users to view custom templates connected to a Django server with the shell command :
+      
+      ```console
+      aktemplates runserver
+      ```
+      > Note: the `aktemplates` command should be considered a drop-in substitute for `django-admin`/`python manage.py`
 
 2) Provide an environment that can *fully take advantage* of Django niceties by giving us full control over the server. While the backend may not necessarily be a one-to-one match to ActionKit's, we can replicate more than enough functionality using ActionKit's public documentation to build a robust template engine that mimics ActionKit's in the most important ways. For example this will allow developers to have:
 
-- Complete control over a User model that enables the replication and testing of key authentication workflows.
-- Django's test runner, which can test functionality with custom browser contexts.
-- The ability to permutate many datasets and configurations with the template runner and build user-interfacing testing tools on top of them
-- and much more
+    - Complete control over a User model that enables the replication and testing of key authentication workflows.
+    - Django's test client, which can test functionality with custom browser contexts.
+    - The ability to permutate many datasets and configurations with the template runner and build user-interfacing testing tools on top of them
+    - and much more
 
 Importantly, all work in this repository is *fully public and open-sourced*, lowering the barrier to entry for developers who may not have privileged access to the `dsausa` GitHub Organization.  Accordingly, developers should take extra caution to avoid committing sensitive information to the repo.
 
 ### How does this repo relate to the `dsausa/actionkit-templates` repo?
 
-Right now, the `dsausa/actionkit-templates` repo -- the repo that serves the templates live to production -- still uses the MoveOn repo upstream. At some point, when development is considered stable, the `dsausa/actionkit-templates` repo should use this project as its upstream template runner instead; obviously this change would fall fully under staff discretion.
+Right now, the `dsausa/actionkit-templates` repo -- the repo that serves the templates that DSA uses live in production -- still uses the MoveOn repo upstream. At some point, when development is considered stable, the `dsausa/actionkit-templates` repo should use this project as its upstream template runner instead; obviously this change would fall fully under staff discretion.
 
 If you are interested in directly developing *templates* at the point closest to production, you should obtain access to the `dsausa` repo and submit work against the `staging` branch. If you're interested in developing robust infrastructure around the ActionKit Templates project, including but not limited to the Django backend work, you can do everything you need to do solely within this project.
 
-At some point, it might be preferable to link certain folders (such as the `template_sets` directory) via git or other methods to keep *template* work in-sync. For now, this repository contains example data inherited from the MoveOn repo. More DSA-specific example templates can and should be loaded after they are appropriately audited for sensitive information.
+At some point, it might be preferable to link certain folders (such as the `template_sets` directory) between the repos via git or other methods to keep *template* work in-sync. For now, this repository contains example data inherited from the MoveOn repo. More DSA-specific example templates can and should be loaded after they are appropriately audited for sensitive or proprietary information.
 
-## Getting started using the `dsa-actionkit` package as a template runner
+## Using the `dsa-actionkit` package as a template runner
 
-Anyone may install the command-line utility published by this repo by running `pip install dsa-actionkit` or by declaring `dsa-actionkit` in your project's `pyproject.toml` or `requirement.txt` as appropriate to your chosen installation setup/package manager.
+Anyone may install the `aktemplates` command-line utility in any arbitrary python project by running `pip install dsa-actionkit` or by declaring `dsa-actionkit` in your project's `pyproject.toml` or `requirement.txt` as appropriate with respect to your chosen installation setup/package manager.
 
-> To make contributions and changes to the way this app runs under the hood, skip to [Developing](#developing) and work directly from the source code in this repository!
-
-Here's an example set of commands that includes creating a directory for the project and a virtual environment to install `dsa-actionkit` in:
+Here's an example set of commands that includes creating a directory for a project and creating a virtual environment to install `dsa-actionkit` in:
 
 ```console
 $ mkdir myproject && cd myproject
@@ -139,7 +138,13 @@ In that situation, if you set STATIC_FALLBACK to a directory where, e.g. `jquery
 
 ## Contributing
 
-The easiest way to set up your development environment is to use our Codespaces/Dev Container setup. If you prefer to manually install your dependencies, as of right now this repo supports Python 3.11 and you may need to configure a few environment variables (inspect the devcontainer.json for clues)
+The easiest way to set up your development environment is to use our Codespaces/Dev Container setup:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dsa-ntc/actionkit-templates)
+
+> Note: Codespaces is paid GitHub functionality, but my understanding is that their free tier is pretty generous. To open a dev container locally, make sure you have Docker, VS Code, and the VS Code Dev Containers extension. Windows users are encouraged to develop in WSL.
+
+If you prefer to manually install your dependencies, as of right now this repo supports Python 3.11 and you may need to configure a few environment variables (inspect the devcontainer.json for clues)
 
 In the project root, create a virtual environment and install the project package and all dependencies in editable mode:
 
