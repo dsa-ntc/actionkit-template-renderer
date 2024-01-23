@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, re_path
+
+from dsa_actionkit.settings import STATIC_ROOT
 from mydsa.views import (
     event_api_moveon_fake,
     event_search_results,
@@ -24,7 +26,6 @@ from mydsa.views import (
     logout,
     user_password_forgot,
 )
-from settings import STATIC_ROOT
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -43,4 +44,4 @@ urlpatterns = [
 ]
 
 if STATIC_ROOT:
-    urlpatterns = staticfiles_urlpatterns()
+    urlpatterns += staticfiles_urlpatterns()
