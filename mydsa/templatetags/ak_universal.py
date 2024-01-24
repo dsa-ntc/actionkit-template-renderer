@@ -9,14 +9,15 @@ from django.template.defaulttags import register
 @register.filter
 def single_line(value):
     "issue: this seems to be pre-loaded tag without actionkit_tags -- diff django version?"
-    return value.replace("\n"," ")
+    return value.replace("\n", " ")
+
 
 @register.simple_tag
 def client_name():
     "Is this true?  that it's universally available?"
     return getattr(settings, "AK_CLIENT_NAME", "--Site_ClientName--")
 
+
 @register.simple_tag
 def client_domain():
     return getattr(settings, "AK_CLIENT_DOMAIN", "actionkit.example.com")
-

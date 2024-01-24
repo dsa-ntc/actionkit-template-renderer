@@ -13,11 +13,14 @@ logged_in_data_with_hide_recognized_block = {
         "introduction_text": "Take our Survey!",
         "surveyquestion_set": {
             "all": [
-                {"question_label": "How do you feel?",
-                 "question_html": '<input type="text" name="action_howfeel" />',
-                 "input_html": format_html('<input type="text" name="action_howfeel" />'),
-                 "placeholder": "Share your feelings",
-             },
+                {
+                    "question_label": "How do you feel?",
+                    "question_html": '<input type="text" name="action_howfeel" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_howfeel" />'
+                    ),
+                    "placeholder": "Share your feelings",
+                },
             ],
         },
     },
@@ -29,41 +32,62 @@ logged_in_data_with_hide_recognized_block = {
         "last_name": "Addams",
     },
     "user_fields": [
-        {"field_name": "name",
-         "label_text": "Name",
-         "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
-         "input_html": format_html('<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'),
+        {
+            "field_name": "name",
+            "label_text": "Name",
+            "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
+            "input_html": format_html(
+                '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'
+            ),
         },
-        {"field_name": "email",
-         "label_text": "Email Address",
-         "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
-         "input_html": format_html('<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'),
+        {
+            "field_name": "email",
+            "label_text": "Email Address",
+            "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
+            "input_html": format_html(
+                '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'
+            ),
         },
-        {"field_name": "address1",
-         "label_text": "Street Address",
-         "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
-         "input_html": format_html('<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'),
+        {
+            "field_name": "address1",
+            "label_text": "Street Address",
+            "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
+            "input_html": format_html(
+                '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'
+            ),
         },
-        {"field_name": "city",
-         "label_text": "City",
-         "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />',
-         "input_html": format_html('<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />'),
+        {
+            "field_name": "city",
+            "label_text": "City",
+            "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />',
+            "input_html": format_html(
+                '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />'
+            ),
         },
-        {"field_name": "state",
-         "label_text": "State",
-         "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />',
-         "input_html": format_html('<input id="id_state" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />'),
+        {
+            "field_name": "state",
+            "label_text": "State",
+            "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />',
+            "input_html": format_html(
+                '<input id="id_state" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />'
+            ),
         },
-        {"field_name": "zip",
-         "label_text": "ZIP Code",
-         "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
-         "input_html": format_html('<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'),
+        {
+            "field_name": "zip",
+            "label_text": "ZIP Code",
+            "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
+            "input_html": format_html(
+                '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'
+            ),
         },
-        {"field_name": "phone",
-         "label_text": "Phone",
-         "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
-         "input_html": format_html('<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'),
-     },
+        {
+            "field_name": "phone",
+            "label_text": "Phone",
+            "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
+            "input_html": format_html(
+                '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'
+            ),
+        },
     ],
 }
 
@@ -80,31 +104,46 @@ no_questions = {
         },
     },
     "user_fields": [
-        {"field_name": "name",
-         "label_text": "Name",
-         "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
-         "input_html": format_html('<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'),
+        {
+            "field_name": "name",
+            "label_text": "Name",
+            "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
+            "input_html": format_html(
+                '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'
+            ),
         },
-        {"field_name": "email",
-         "label_text": "Email Address",
-         "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
-         "input_html": format_html('<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'),
+        {
+            "field_name": "email",
+            "label_text": "Email Address",
+            "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
+            "input_html": format_html(
+                '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'
+            ),
         },
-        {"field_name": "address1",
-         "label_text": "Street Address",
-         "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
-         "input_html": format_html('<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'),
+        {
+            "field_name": "address1",
+            "label_text": "Street Address",
+            "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
+            "input_html": format_html(
+                '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'
+            ),
         },
-        {"field_name": "zip",
-         "label_text": "ZIP Code",
-         "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
-         "input_html": format_html('<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'),
+        {
+            "field_name": "zip",
+            "label_text": "ZIP Code",
+            "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
+            "input_html": format_html(
+                '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'
+            ),
         },
-        {"field_name": "phone",
-         "label_text": "Phone",
-         "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
-         "input_html": format_html('<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'),
-     },
+        {
+            "field_name": "phone",
+            "label_text": "Phone",
+            "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
+            "input_html": format_html(
+                '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'
+            ),
+        },
     ],
 }
 
@@ -129,50 +168,74 @@ survey = {
         "introduction_text": "Take our Survey!",
         "surveyquestion_set": {
             "all": [
-                {"question_label": "How do you feel?",
-                 "question_html": '<input type="text" name="action_howfeel" />',
-                 "input_html": format_html('<input type="text" name="action_howfeel" />'),
-                 "placeholder": "Share your feelings",
-             },
+                {
+                    "question_label": "How do you feel?",
+                    "question_html": '<input type="text" name="action_howfeel" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_howfeel" />'
+                    ),
+                    "placeholder": "Share your feelings",
+                },
             ],
         },
     },
     "user_fields": [
-        {"field_name": "name",
-         "label_text": "Name",
-         "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
-         "input_html": format_html('<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'),
+        {
+            "field_name": "name",
+            "label_text": "Name",
+            "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
+            "input_html": format_html(
+                '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'
+            ),
         },
-        {"field_name": "email",
-         "label_text": "Email Address",
-         "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
-         "input_html": format_html('<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'),
+        {
+            "field_name": "email",
+            "label_text": "Email Address",
+            "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
+            "input_html": format_html(
+                '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'
+            ),
         },
-        {"field_name": "address1",
-         "label_text": "Street Address",
-         "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
-         "input_html": format_html('<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'),
+        {
+            "field_name": "address1",
+            "label_text": "Street Address",
+            "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
+            "input_html": format_html(
+                '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'
+            ),
         },
-        {"field_name": "city",
-         "label_text": "City",
-         "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />',
-         "input_html": format_html('<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />'),
+        {
+            "field_name": "city",
+            "label_text": "City",
+            "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />',
+            "input_html": format_html(
+                '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="city" />'
+            ),
         },
-        {"field_name": "state",
-         "label_text": "State",
-         "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />',
-         "input_html": format_html('<input id="id_state" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />'),
+        {
+            "field_name": "state",
+            "label_text": "State",
+            "input_tag": '<input id="id_city" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />',
+            "input_html": format_html(
+                '<input id="id_state" type="text" class="form-control mo-userfield-input ak-has-overlay" name="state" />'
+            ),
         },
-        {"field_name": "zip",
-         "label_text": "ZIP Code",
-         "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
-         "input_html": format_html('<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'),
+        {
+            "field_name": "zip",
+            "label_text": "ZIP Code",
+            "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
+            "input_html": format_html(
+                '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'
+            ),
         },
-        {"field_name": "phone",
-         "label_text": "Phone",
-         "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
-         "input_html": format_html('<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'),
-     },
+        {
+            "field_name": "phone",
+            "label_text": "Phone",
+            "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
+            "input_html": format_html(
+                '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'
+            ),
+        },
     ],
 }
 
@@ -186,63 +249,93 @@ shipping_survey = {
         "introduction_text": "verify shipping!",
         "surveyquestion_set": {
             "all": [
-                {"question_label": "How do you feel?",
-                 "question_html": '<input type="text" name="action_howfeel" />',
-                 "input_html": format_html('<input type="text" name="action_howfeel" />'),
-                 "placeholder": "Share your feelings",
-                 "field_name": "howfeel",
-             },
-            {"question_label": "Address",
-              "question_html": '<input type="text" name="action_shipping_address" />',
-              "input_html": format_html('<input type="text" name="action_shipping_address" />'),
-              "field_name": "shipping_address",
-              },
-              {"question_label": "Address Line 2",
-               "question_html": '<input type="text" name="action_shipping_address2" />',
-               "input_html": format_html('<input type="text" name="action_shipping_address2" />'),
-               "field_name": "shipping_address2",
-               },
-               {"question_label": "City",
-                "question_html": '<input type="text" name="action_shipping_city" />',
-                "input_html": format_html('<input type="text" name="action_shipping_city" />'),
-                "field_name": "shipping_city",
+                {
+                    "question_label": "How do you feel?",
+                    "question_html": '<input type="text" name="action_howfeel" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_howfeel" />'
+                    ),
+                    "placeholder": "Share your feelings",
+                    "field_name": "howfeel",
                 },
-                {"question_label": "zip",
-                 "question_html": '<input type="text" name="action_shipping_zip" />',
-                 "input_html": format_html('<input type="text" name="action_shipping_zip" />'),
-                 "placeholder": "Share your feelings",
-                 "field_name": "shipping_zip",
-                 },
+                {
+                    "question_label": "Address",
+                    "question_html": '<input type="text" name="action_shipping_address" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_shipping_address" />'
+                    ),
+                    "field_name": "shipping_address",
+                },
+                {
+                    "question_label": "Address Line 2",
+                    "question_html": '<input type="text" name="action_shipping_address2" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_shipping_address2" />'
+                    ),
+                    "field_name": "shipping_address2",
+                },
+                {
+                    "question_label": "City",
+                    "question_html": '<input type="text" name="action_shipping_city" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_shipping_city" />'
+                    ),
+                    "field_name": "shipping_city",
+                },
+                {
+                    "question_label": "zip",
+                    "question_html": '<input type="text" name="action_shipping_zip" />',
+                    "input_html": format_html(
+                        '<input type="text" name="action_shipping_zip" />'
+                    ),
+                    "placeholder": "Share your feelings",
+                    "field_name": "shipping_zip",
+                },
             ],
         },
     },
     "user_fields": [
-        {"field_name": "name",
-         "label_text": "Name",
-         "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
-         "input_html": format_html('<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'),
+        {
+            "field_name": "name",
+            "label_text": "Name",
+            "input_tag": '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />',
+            "input_html": format_html(
+                '<input id="id_name" type="text" class="form-control mo-userfield-input ak-has-overlay" name="name" />'
+            ),
         },
-        {"field_name": "email",
-         "label_text": "Email Address",
-         "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
-         "input_html": format_html('<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'),
+        {
+            "field_name": "email",
+            "label_text": "Email Address",
+            "input_tag": '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />',
+            "input_html": format_html(
+                '<input id="id_email" type="text" class="form-control mo-userfield-input ak-has-overlay"  name="email" />'
+            ),
         },
-        {"field_name": "address1",
-         "label_text": "Street Address",
-         "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
-         "input_html": format_html('<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'),
+        {
+            "field_name": "address1",
+            "label_text": "Street Address",
+            "input_tag": '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />',
+            "input_html": format_html(
+                '<input id="id_address1" type="text" class="form-control mo-userfield-input ak-has-overlay" />'
+            ),
         },
-        {"field_name": "zip",
-         "label_text": "ZIP Code",
-         "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
-         "input_html": format_html('<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'),
+        {
+            "field_name": "zip",
+            "label_text": "ZIP Code",
+            "input_tag": '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />',
+            "input_html": format_html(
+                '<input id="id_zip" type="text" class="form-control mo-userfield-input ak-has-overlay" name="zip" />'
+            ),
         },
-        {"field_name": "phone",
-         "label_text": "Phone",
-         "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
-         "input_html": format_html('<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'),
-         },
-        ],
+        {
+            "field_name": "phone",
+            "label_text": "Phone",
+            "input_tag": '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />',
+            "input_html": format_html(
+                '<input id="id_phone" type="text" class="form-control mo-userfield-input ak-has-overlay" name="phone" />'
+            ),
+        },
+    ],
 }
 
 logged_in_data = {
@@ -279,7 +372,14 @@ letter_to_congress_base = {
         "goal_type": "actions",
     },
     "context": {
-        "progress": {"total": {"actions": 1}, "goal": 5, "goal_type": "actions", "recent": {"actions": 1}, "time": 1621261302.6000607, "age": 447.172566652298},
+        "progress": {
+            "total": {"actions": 1},
+            "goal": 5,
+            "goal_type": "actions",
+            "recent": {"actions": 1},
+            "time": 1621261302.6000607,
+            "age": 447.172566652298,
+        },
     },
 }
 letter_to_congress = {}
@@ -299,6 +399,6 @@ contexts = {
     "survey_no_survey": no_survey,
     "letter.html": letter_to_congress,
     "letter_logged_in": letter_to_congress_login,
-     #kinda silly, but avoid appending to the bottom because then git merge conflicts arise more often.
-    #let's do the context values in alphabetical order.
+    # kinda silly, but avoid appending to the bottom because then git merge conflicts arise more often.
+    # let's do the context values in alphabetical order.
 }
