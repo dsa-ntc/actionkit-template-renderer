@@ -1,0 +1,17 @@
+<div class="pure-g">
+    {% if page.custom_fields.featured_image %}
+        <div class="pure-u-1 pure-u-md-12-24">
+            {% include_tmpl form.ask_text unescaped %}
+            <div class="layout--spacer-20"></div>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-24"></div>
+        <div class="pure-u-1 pure-u-md-11-24">
+            <img class="pure-img image--main" src="{{page.custom_fields.featured_image}}">
+        </div>
+    {% else %}
+        <div class="pure-u-1">
+            {% include_tmpl form.ask_text unescaped %}
+            <div class="layout--spacer-20"></div>
+        </div>
+    {% endif %}
+</div>

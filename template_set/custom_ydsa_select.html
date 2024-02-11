@@ -1,0 +1,36 @@
+<div>
+    <h4><strong>When will you graduate?</strong></h4>
+    <label for="graduation_year">Graduation Year</label>
+    {# Creates a select with the next 8 years as options #}
+    <select id="graduation_year" name="user_graduation_year">
+        {% now "Y" as current_year %}
+        {% for _ in  ''|center:8 %}
+            <option value="{{ current_year|add:forloop.counter|add:-1 }}">{{ current_year|add:forloop.counter|add:-1 }}</option>
+        {% endfor %}
+    </select>
+    <label for="graduation_year">Graduation Month</label>
+    <select name="user_graduation_month" id="graduation_month">
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+</div>
+<div>
+    <label for="user_ydsa_chapter">YDSA Chapter</label>
+    <select name="user_ydsachapter1" id="id_user_ydsachapter1" class="ak-userfield-input">
+        <option value="" selected>-----</option>
+        <option value="Other">Other</option>
+        {% for chapter in page.custom_fields.listed_ydsa_chapters|linebreaksbr|split:"<br>" %}
+            <option value="{{chapter}}">{{chapter}}</option>
+        {% endfor %}
+    </select>
+</div>

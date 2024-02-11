@@ -56,3 +56,14 @@ per-file-ignores = { "tests/**/*.py" = [
 
 [tool.ruff.pydocstyle]
 convention = "google"
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+    "integration",
+]
+DJANGO_SETTINGS_MODULE = "dsa_actionkit.settings"
+# -- recommended but optional:
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]

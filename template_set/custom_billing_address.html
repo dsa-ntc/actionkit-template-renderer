@@ -1,0 +1,70 @@
+<h4 class="{% if not has_shippable_products %}ak-donate-three-step-hidden{% endif %}">
+    <strong>Billing Address</strong>
+</h4>
+<div class="ak-labels-overlaid ak-errs-below test2">
+    {% if page.accept_ach %}
+        <div>
+            <label for="id_first_name">First Name</label>
+            <input id="id_first_name" type="text" name="first_name" style="width:45%">
+            <input type="hidden" name="required" value="first_name">
+            <label for="id_last_name">Last Name</label>
+            <input id="id_last_name" type="text" name="last_name" style="width:45%">
+            <input type="hidden" name="required" value="last_name">
+        </div>
+    {% else %}
+        <div>
+            <label for="id_name">Name for Billing</label>
+            <input id="id_name" type="text" name="name">
+        </div>
+    {% endif %}
+    {% if has_shippable_products %}
+        <div>
+            <label for="id_address1">Billing address line 1</label>
+            <input id="id_address1" type="text" name="address1">
+        </div>
+        <div>
+            <label for="id_address2">Billing address line 2 (optional)</label>
+            <input id="id_address2" type="text" name="address2">
+        </div>
+    {% else %}
+        <div>
+            <label for="id_address1">Billing address</label>
+            <input id="id_address1" type="text" name="address1">
+        </div>
+    {% endif %}
+    <div>
+        <label for="id_city">City</label>
+        <input id="id_city" type="text" name="city">
+    </div>
+    <div class="ak-errs-below">
+        <div class="ak-us-billing-fields">
+            <input type="hidden" name="required" value="state">
+            <label for="id_state">State</label>
+            {% include "./state_select.html" %}
+        </div>
+        <div class="ak-us-billing-fields">
+            <input type="hidden" name="required" value="zip">
+            <label for="id_zip">Zip</label>
+            <input id="id_zip" type="text" name="zip" maxlength="5" size="5">
+        </div>
+    </div>
+    {% if page.allow_international %}
+        <div class="ak-errs-below" class="ak-intl-billing-fields">
+            <div>
+                <label for="id_region">Region</label>
+                <input id="id_region"  type="text" name="region" size="20">
+            </div>
+            <div>
+                <label for="id_postal">Postal Code</label>
+                <input id="id_postal"  type="text" name="postal" size="10">
+            </div>
+        </div>
+
+        <div>
+            <label for="id_country">Country</label>
+            {% include "./country_select.html" %}
+        </div>
+    {% else %}
+        <input type="hidden" name="country" value="United States">
+    {% endif %}
+</div>

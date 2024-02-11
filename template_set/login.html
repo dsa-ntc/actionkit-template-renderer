@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <script>
+            if (location.hostname == "roboticdogs.actionkit.com") {
+                var redirect_uri = "https%3A%2F%2Froboticdogs.actionkit.com%2Fme"
+            } else {
+                var redirect_uri = "https%3A%2F%2Fact.dsausa.org%2Fme"
+            }
+
+            location.replace("https://dsausa.auth0.com/authorize?client_id=scFEMUrAGUK5QOjB4fAQRwmWm0agcDmu&response_type=code&redirect_uri=" + redirect_uri)
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

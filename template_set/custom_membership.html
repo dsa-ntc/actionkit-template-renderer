@@ -1,0 +1,87 @@
+{% load actionkit_tags %}
+
+{% include "./custom_membership_styles.html" %}
+
+<div class="layout--spacer-20"></div>
+
+{% if page.name != "joinNYC" and page.name != "membership_embed" and page.name != "membership_monthly_only" and page.name != "membership_sibd_only" %}
+    {% include "./custom_membership_header.html" %}
+    <div class="layout--spacer-20"></div>
+{% endif %}
+
+<div class="pure-g">
+    <div id="donation-form" class="pure-u-1 layout--form image--centered">
+        <form id="act" name="act" class="ak-donate-one-step" method="POST" action="/act/" accept-charset="utf-8">
+            <input type="hidden" name="page" value="{{ page.name }}">
+            <input type="hidden" name="orig_akid" value="{{ akid }}">
+            <div class="ak-grid-row">
+                <div class="ak-field-box">
+                    <div id="ak-donation-details" class="xak-errs-below">
+                        <div id="ak-amount-list" class="ak-err-above ak-donate-area-step-1">
+                            <div class="ak-amount-wrapper pure-g" onClick="printOrder()">
+                                <noscript>WARNING: Please enable javascript! Otherwise your dues will likely be processed incorrectly and you may not be charged correctly</noscript>
+                                <div class="pure-u-1 pure-u-md-12-24">
+                                    <h1 class="dsa-h1">Choose a dues type</h1>
+                                    <hr/>
+                                    {% include "./custom_payment_type.html" %}
+                                </div>
+                                <div class="pure-u-1 pure-u-md-1-24"></div>
+                                <div class="pure-u-1 pure-u-md-11-24">
+                                    <h1 class="dsa-h1">Choose an amount</h1>
+                                    <hr/>
+                                    {% include "./custom_payment_amount.html" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ak-donation-total-div">
+                        <h1 class="dsa-h1">Your Contribution</h1>
+                        <hr/>
+                        <span id="dsa-preview-amount" class="dsa-amount"></span>
+                    </div>
+
+                    {% if not has_products %}
+                        <input type="hidden" name="recurring_period" id="id_recurring_period" value="years">
+                        <br/>
+                        <input type="hidden" name="donation_type" id="id_donation_type" value="recurring" checked>
+                    {% endif %}
+
+                    <div id="ak-donation-contact" class="ak-styled-fields ak-donate-area-step-2 ak-errs-below">
+                        <ul id="ak-errors"></ul>
+                        <div class="pure-g">
+                            <div class="pure-u-1 pure-u-md-12-24">
+                                {% include "./custom_billing_address.html" %}
+                            </div>
+                            <div class="pure-u-1 pure-u-md-1-24"></div>
+                            <div class="pure-u-1 pure-u-md-11-24">
+                                {% include "./custom_mailing_address.html" %}
+                            </div>
+                        </div>
+                        {% include "./custom_email_and_phone.html" %}
+                    </div>
+
+                    <div class="ak-labels-above ak-styled-fields ak-errs-below">
+                        {% include "./custom_membership_questions.html" %}
+
+                        {% if page.name == "ydsa_membership_rate" %}
+                            {% include "./custom_ydsa_select.html" %}
+                        {% endif %}
+                    </div>
+
+                    {% include "./custom_payment_info.html" %}
+
+                    <div class="dsa-disclaimer">
+                        {% include "./custom_membership_disclaimer.html" %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if page.name == "membership" %}
+    {% include "./custom_membership_full_pitch.html" %}
+{% endif %}
+
+{% include "./custom_membership_scripts.html" %}

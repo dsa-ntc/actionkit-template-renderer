@@ -1,0 +1,44 @@
+{% comment %}
+This custom action field keeps track of what kind of dues are being paid: yearly, monthly,
+income-based, or one-time. Not to be confused with dues_type, which keeps track of new
+memberships vs renewals.
+{% endcomment %}
+<input type="hidden" id="action_dues_category" name="action_dues_category" value=""/>
+{% with hidden=page.custom_fields.dues_category_exclusions|split:',' %}
+    {% if 'monthly-income-based' not in hidden %}
+        <label for="dsa_period_income-based" class="radio-container">
+            {% if page.name != "ibd_campaign" %}
+                <img class="dsa-sibd-logo" src="https://s3.amazonaws.com/actionkit-dsausa/images/sibd.png" style="float: right;">
+            {% endif %}
+            <h2 class="dsa-h2">Monthly Solidarity Income Based Dues</h2>
+            <span class="dsa-span">Dues will be billed recurring monthly. When you select this option you will see a suggested monthly dues amount based on your personal annual income. A portion of your dues payment will be shared with your local chapter. <a href="https://docs.google.com/document/d/1JrTerBrd2lArwmgAiadopYZdN0rv06vRNHwWmUeA8Hk/" target="blank">Learn more here!</a></span>
+            <input type="radio" data-category="income-based" data-period="months" class="dsa-radio dsa-radio-category" name="dsa_period" id="dsa_period_income-based" value="monthly">
+            <span class="radio-checkmark"></span>
+        </label>
+    {% endif %}
+    {% if 'monthly' not in hidden %}
+        <label class="radio-container" for="dsa_period_monthly" style="clear: right">
+            <h2 class="dsa-h2">Monthly Membership Movement Builder</h2>
+            <span class="dsa-span">Dues will be billed recurring monthly. Movement Builders, DSA's monthly dues program, helps support chapter trainings, new chapter start-up, member support and YDSA. A portion of your dues payment will be shared with your local chapter.</p>
+            <input type="radio" id="dsa_period_monthly" data-category="monthly" data-period="months" class="dsa-radio dsa-radio-category" name="dsa_period" value="monthly">
+            <span class="radio-checkmark"></span>
+        </label>
+    {% endif %}
+    {% if 'annual' not in hidden %}
+        <label class="radio-container" for="dsa_period_annual">
+            <h2 class="dsa-h2">Annual Recurring Membership</h2>
+            <span class="dsa-span">Dues will be billed recurring annually</span>
+            <input type="radio" id="dsa_period_annual" data-category="annual" data-period="years" class="dsa-radio dsa-radio-category" name="dsa_period" value="annual">
+            <span class="radio-checkmark"></span>
+        </label>
+    {% endif %}
+    {% if 'single' not in hidden %}
+        <label class="radio-container" for="dsa_period_single">
+            <h2 class="dsa-h2">Single Year Membership</h2>
+            <span class="dsa-span">Dues will be billed one time</span>
+
+            <input type="radio" id="dsa_period_single" data-category="single" data-period="single" class="dsa-radio dsa-radio-category" name="dsa_period" value="single">
+            <span class="radio-checkmark"></span>
+        </label>
+    {% endif %}
+{% endwith %}

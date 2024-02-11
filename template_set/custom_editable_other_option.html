@@ -1,0 +1,60 @@
+{% comment %}
+This script enables us to use fields that accept several predefined options and
+an "Other" option which accepts any text input if selected.
+
+To use: add the `editable_other_option` class to the div containing the field's
+label and input. This script will only affect options with value="" and the
+text "Other". To set this up in AK:
+    X=Option 1
+    Y=Option 2
+    =Other
+
+{% endcomment %}
+<script>
+    $(document).ready(function() {
+        var fields = $('.editable_other_option')
+
+        var form = fields.first().parents('form')
+        form.submit(handle_submit)
+
+        var options = fields.find('option[value=""]:contains("Other")')
+        var checkboxes = fields.find('label:contains("Other") > input[type="checkbox"][value=""]')
+
+        options.parent().on('change', handle_select_change)
+        checkboxes.on('change', handle_checkbox_change)
+
+        options.change()
+        checkboxes.change()
+
+        function handle_select_change(e) {
+            var option = $(e.target).find('option:selected')
+            var is_other = option.text() === "Other"
+            render_input(is_other, e.target, option[0])
+        }
+
+        function handle_checkbox_change(e) {
+            render_input(e.target.checked, e.target.parentElement, e.target)
+        }
+
+        function render_input(visible, container_elem, target_elem) {
+            input_id = container_elem.id + "_other_text_input"
+            $input = $(`#${input_id}`)
+            if (visible && $input.length === 0) {
+                $input = $(`<input class="ak-userfield-input other_text_input" type="text" id="${input_id}">`)
+
+                $input.change(function(e) {
+                    target_elem.value = e.target.value
+                })
+
+                $(container_elem).after($input)
+
+            } else if(!visible) {
+                $input.remove()
+            }
+        }
+
+        function handle_submit(e) {
+            $('.other_text_input').remove()
+        }
+    })
+</script>

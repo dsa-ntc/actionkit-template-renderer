@@ -1,0 +1,170 @@
+{% load actionkit_tags %}
+
+<div class="ak-labels-above ak-styled-fields ak-donate-area-step-3 ak-errs-below">
+
+    <h4><strong>Payment Information</strong></h4>
+    {% if page.accept_ach %}
+        <div>
+            <input type="radio" id="ak_payment_method_cc" name="payment_method" value="cc" checked>
+            <label for="ak_payment_method_cc">Credit Card</label>
+            <br>
+            <input type="radio" id="ak_payment_method_ach" name="payment_method" value="ach">
+            <label for="ak_payment_method_ach">Bank Account</label>
+            <div class="tooltip" onclick="toggleTooltip()">
+                Why use my bank?
+                <span id="ach-tooltip" class="tooltiptext">
+                    DSA now accepts ACH bank transfers (eCheck)! By electing to use ACH, you’re helping DSA put more money towards building the socialist movement, and less towards high credit card processing fees. In 2019, DSA had to pay over $120,000 to credit card companies to process dues and donations - make the switch to ACH today!
+                </span>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Credit card fields -->
+    <div class="cc_payment_options">
+        <div id="ak-fieldbox-card_num" class="">
+            <label for="ak-card_num">Credit Card #</label>
+            <input type="hidden" name="required" value="card_num" id="ak-card_num-required">
+            <div id="ak-card_num-hosted" class="hosted-field"></div>
+            <input id="ak-card_num" type="text" name="card_num">
+        </div>
+
+        <div class="ak-err-below">
+            <div id="ak-fieldbox-exp_date">
+                <input type="hidden" name="required" value="exp_date_month" id="ak-exp_date_month-required">
+                <label for="ak-exp_date_month">Expiration Date</label>
+                <div id="ak-exp_date-hosted" class="hosted-field"></div>
+                <select id="ak-exp_date_month" type="text" name="exp_date_month">
+                    <option value="">MM</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <input type="hidden" name="required" value="exp_date_year" id="ak-exp_date_year-required">
+                <select id="ak-exp_date_year" type="text" name="exp_date_year">
+                    <option value="">YYYY</option>
+                    {% for year in exp_years %}
+                        <option value="{{ year.two }}">{{ year.four }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="ak-err-below">
+            <div id="ak-fieldbox-card_code">
+                <input type="hidden" name="required" value="card_code" id="ak-card_code-required">
+                <label for="ak-card_code">Verification Code</label>
+                <div id="ak-card_code-hosted" class="hosted-field"></div>
+                <input id="ak-card_code" type="text" name="card_code" size="4">
+            </div>
+        </div>
+    </div>
+
+    <!-- ACH fields -->
+    {% if page.accept_ach %}
+        <div class="ach_payment_options">
+            <div class="ak-err-below">
+                <div id="ak-fieldbox-account_type">
+                    <label for="ak-account_type">Account Type</label>
+                    <select id="ak-account_type" type="text" name="account_type">
+                        <option value="checking">Checking</option>
+                        <option value="savings">Savings</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ak-err-below">
+                <div id="ak-fieldbox-routing_number">
+                    <label for="ak-routing_number">Routing Number</label>
+                    <input id="ak-routing_number" type="text" name="routing_number" size="9">
+                </div>
+            </div>
+
+            <div class="ak-err-below">
+                <div id="ak-fieldbox-bank_account">
+                    <label for="ak-bank_account">Account Number</label>
+                    <input id="ak-bank_account" type="text" name="bank_account" size="17">
+                </div>
+            </div>
+
+            <div class="ak-err-below">
+                <div id="ak-fieldbox-ownership_type">
+                    <label for="ak-ownership_type">Account Ownership Type</label>
+                    <select id="ak-ownership_type" type="text" name="ownership_type">
+                        <option value="personal">Personal</option>
+                        <option value="business">Business</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ak-err-below">
+                <div id="ak-fieldbox-business_name">
+                    <label for="ak-business_name">Business Name</label>
+                    <input id="ak-business_name" type="text" name="business_name">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if page.accept_ach %}
+        <script>
+            $('input[type=radio][name=payment_method]').change(function() {
+                if (this.value == 'ach') {
+                    $('.ach_payment_options').show();
+                    $('.cc_payment_options').hide();
+                } else {
+                    $('.ach_payment_options').hide();
+                    $('.cc_payment_options').show();
+                }
+            });
+
+            $('#ak-ownership_type').change(function() {
+                if (this.value == 'business') {
+                    $('#ak-fieldbox-business_name').show();
+                } else {
+                    $('#ak-fieldbox-business_name').hide();
+                }
+            });
+        </script>
+    {% endif %}
+</div>
+
+<button class="ak-donate-three-step-visible" id="ak-continue-button">Continue</button>
+
+{% if page.payment_processor_information.init_submit_disabled %}
+    {% comment %}
+        For pages that use Braintree, the submit button will be enabled by javascript.
+    {% endcomment %}
+
+    <button disabled="true" type="submit" class="ak-submit-button ak-donate-area-step-3">{% if this_page_manages_memberships %}Join now for{% else %}Donate{% endif %} <span class="ak-currency-sym">{{ page.currency_sym }}</span><span class="ak-donation-total-amount"></span></button>
+    <noscript>
+        <p>
+            <b>JavaScript is required</b> so this page
+            can securely submit your donation.
+        </p>
+    </noscript>
+{% else %}
+    <button type="submit" class="ak-submit-button ak-donate-area-step-3">{% if this_page_manages_memberships %}Join now for{% else %}Donate{% endif %} <span class="ak-currency-sym">{{ page.currency_sym }}</span><span class="ak-donation-total-amount"></span></button>
+{% endif %}
+
+{% if show_paypal %}
+    <div class="ak-payment-options ak-margin-bottom-1 ak-donate-area-step-2">
+        <input type="hidden" name="paypal" value="0" id="ak-pay-by-paypal">
+        Or check out with
+        <button type="submit" id="ak-paypal-button" class="ak-inline ak-paypal-button"><img src="/media/modern/paypal-logo-1.svg"></button>
+    </div>
+{% endif %}
+
+{% if page.accept_ach %}
+    <div id="ak-fieldbox-mandate">
+        <div id="ak-mandate">By clicking "{% if this_page_manages_memberships %}Join now{% else %}Donate{% endif %}", I authorize Braintree, a service of PayPal, on behalf of <span id="ak-client-name">{% filter ak_text:"org_name" %}{% client_name %}{% endfilter %}</span> (i) to verify my bank account information using bank information and consumer reports and (ii) to debit my bank account.</div>
+    </div>
+{% endif %}

@@ -352,4 +352,29 @@ function disable_invisibles(form) {
 
 </div>
 
+{% if args.debug == "yes" %}
+<details>
+    <summary>Debug</summary>
+    <pre style="background:#f3f6f7;border-radius:1rem">
+page
+{{ page|pprint }}
+
+args
+{{ args|pprint }}
+
+actionkit_user
+{{ actionkit_user|pprint }}
+
+logged_in_user
+{{ logged_in_user|pprint }}
+
+active
+{{ active|pprint }}
+
+inactive
+{{ inactive|pprint }}
+    </pre>
+</details>
+{% endif %}
+
 {% endblock %}

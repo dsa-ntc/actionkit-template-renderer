@@ -1,0 +1,66 @@
+<h4 class="{% if not has_shippable_products %}ak-donate-three-step-hidden{% endif %}">
+    <strong>Mailing Address</strong>
+</h4>
+<span class="copy-billing-button" onclick="copyBilling()">Click to copy from billing</span>
+<div class="ak-labels-overlaid ak-errs-below test2">
+    <div>
+        <input type="hidden" name="required" value="user_chosen_first_name">
+        <label for="id_chosen_first_name">Member First Name</label>
+        <input id="id_chosen_first_name" type="text" name="user_chosen_first_name" style="width:45%">
+        <label for="id_chosen_last_name">Member Last Name</label>
+        <input id="id_chosen_last_name" type="text" name="user_chosen_last_name" style="width:45%">
+    </div>
+    <div>
+        <input type="hidden" name="required" value="user_mailing_address1">
+        <label for="id_mailing_address1">Mailing address line 1</label>
+        <input id="id_mailing_address1" type="text" name="user_mailing_address1">
+    </div>
+    <div>
+        <label for="id_mailing_address2">Mailing address line 2 (optional)</label>
+        <input id="id_mailing_address2" type="text" name="user_mailing_address2">
+    </div>
+    <div>
+        <input type="hidden" name="required" value="user_mailing_city">
+        <label for="id_mailing_city">City</label>
+        <input id="id_mailing_city" type="text" name="user_mailing_city">
+    </div>
+    <div class="ak-errs-below">
+        <div class="ak-us-billing-fields">
+            <input type="hidden" name="required" value="user_mailing_state">
+        <!-- <label for="id_mailing_state">State</label> -->
+            {% include "./state_select.html" with  input_name_prefix="user_mailing_"%}
+        </div>
+        <div class="ak-us-billing-fields">
+            <input type="hidden" name="required" value="user_mailing_zip">
+            <label for="id_mailing_zip">Zip</label>
+            <input id="id_mailing_zip" type="text" name="user_mailing_zip" maxlength="5" size="5">
+        </div>
+    </div>
+    <input type="hidden" name="user_mailing_country" value="United States">
+</div>
+
+<script>
+    function copyBilling() {
+        var fields = ['address1', 'address2', 'city', 'state', 'zip', 'country'];
+
+        fields.forEach(function (field) {
+            var fieldValue = $('[name=' + field + ']').val();
+            var fieldName = '[name=user_mailing_' + field + ']';
+            $(fieldName).val(fieldValue).blur();
+        });
+
+        {% if page.accept_ach %}
+            $('[name=user_chosen_first_name]').val($('[name=first_name]').val());
+            $('[name=user_chosen_first_name]').blur();
+
+            $('[name=user_chosen_last_name]').val($('[name=last_name]').val());
+            $('[name=user_chosen_last_name]').blur();
+        {% else %}
+            $('[name=user_chosen_first_name]').val($('[name=name]').val().split(" ")[0]);
+            $('[name=user_chosen_first_name]').blur();
+
+            $('[name=user_chosen_last_name]').val($('[name=name]').val().split(" ")[1]);
+            $('[name=user_chosen_last_name]').blur();
+        {% endif %}
+    }
+</script>

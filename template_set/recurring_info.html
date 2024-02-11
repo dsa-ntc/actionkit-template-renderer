@@ -12,7 +12,7 @@
 
         <div>
             <label>
-                Next Payment
+                Next Payment 
             </label>
             <div class="ak-readonly-value">
                 <div>
@@ -25,7 +25,6 @@
                 {% endif %}
             </div>
         </div>
-
         <div class="ak-show-amount">
             <label>
                 {{ profile.get_period_display }} Amount
@@ -45,7 +44,6 @@
             </label>
             <input type="text" name="amount" size="6" value="{{ profile.amount }}">
         </div>
-
         <div>
             <label>
                 First Payment
@@ -56,7 +54,6 @@
                 </div>
             </div>
         </div>
-
         {% if profile.order.payment_method == "cc" %}
         <div class="ak-show-cc">
             <label>
@@ -73,7 +70,6 @@
                 </div>
             </div>
         </div>
-
         <div class="ak-change-cc" style="display: none">
             <label for="card_num_{{ profile.id }}">
                 Credit Card Number
@@ -181,8 +177,6 @@
                 </div>
             </div>
 
-            {% if pp.recurring_update_supports_address %}
-
             <div class="ak-change-address" style="display: none">
               {% if not profile.is_ach %}
                 <div style="text-align: center">
@@ -235,7 +229,6 @@
                     </label>
                     <input name="region" id="id_region_{{ profile.id }}" type="text" value="{{ profile.order.user_detail.region }}" disabled=true>
                 </div>
-
                 <div>
                     <label for="id_postal_{{ profile.id }}">
                         Postal
@@ -283,8 +276,7 @@
 </form>
 {% if pp.use_vzero %}
 <script>
-initVZeroForForm('#change_profile_{{ profile.id }}', '{{ pp.client_token }}', {% if profile.is_ach %}true{% else %}false{% endif %});
-
+initVZeroForForm('#change_profile_{{ profile.id }}', '{{ pp.client_token }}', {% if profile.is_ach %}true{% else %}false{% endif %}, {% if pp.use_3d_secure %}true, '{{profile.payment_nonce_info.nonce}}', '{{profile.payment_nonce_info.bin}}'{% else %}false, '', ''{% endif %});
 var ownership_type_menu = $('#change_profile_{{ profile.id }} [name=ownership_type]');
 if (ownership_type_menu.length) {
     ownership_type_menu.change(function() {

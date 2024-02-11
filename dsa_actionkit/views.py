@@ -85,6 +85,14 @@ def index(request, name=None, page=None):
 
     return render(request, template, cxt)
 
+
+def index_db(request, name=None, page=None):
+    cxt = _get_context_data(request, name, page)
+    template = request.GET.get("template", cxt.get("filename", "homepagetest.html"))
+
+    return render(request, template, cxt)
+
+
 def login_context(request):
     cxt = _get_context_data(request, use_referer=True)
     from dsa_actionkit.contexts.event_context_json import event_json

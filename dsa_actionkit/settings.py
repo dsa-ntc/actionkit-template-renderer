@@ -4,11 +4,92 @@ from pathlib import Path
 
 DEBUG = True
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-INSTALLED_APPS = ["dsa_actionkit" ]
-with contextlib.suppress(Exception):
-    INSTALLED_APPS.append("django_extensions")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+# Application definition
+
+INSTALLED_APPS = [
+    "mydsa.apps.MyDsaConfig",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
 
 ROOT_URLCONF = "dsa_actionkit.urls"
+
+WSGI_APPLICATION = "dsa_actionkit.wsgi.application"
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite",
+    },
+    # "roboticdogs": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "ak_roboticdogs",
+    #     "USER": os.getenv("ROBOTIC_DOGS_USER"),
+    #     "PASSWORD": os.getenv("ROBOTIC_DOGS_PASSWORD"),
+    #     "HOST": "roboticdogs.client-db.actionkit.com",
+    # },
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
 APP_PATH = Path().parent
 PROJECT_ROOT_PATH = Path.resolve(Path.cwd())
 

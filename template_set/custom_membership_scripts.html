@@ -1,0 +1,138 @@
+<script>
+    function dsa_clear_radio_buttons(event) {
+        $('input.ak-amount-radio-button').prop('checked', false).parent().removeClass("ak-radio-checked");
+        event.target.checked = true;
+        $('label[for='+event.target.id+']').addClass('ak-radio-checked');
+        printOrder();
+    }
+
+    $('.dsa-radio-category').on('click', setDuesCategory)
+    $('#dsa-income-based-annual-income').on('input', handleAnnualIncomeUpdate)
+
+    function handleAnnualIncomeUpdate(event) {
+        var income = parseInt(event.target.value)
+        var onePercentMonthly = calculateBaseDuesRate(income)
+        var monthlyRate = Math.ceil(onePercentMonthly)
+        var monthlyRate2 = Math.ceil(onePercentMonthly * 2)
+        var monthlyRate3 = Math.ceil(onePercentMonthly * 3)
+
+        $('#income-based-amount-1').html("$" + monthlyRate)
+        $('#income-based-amount-2').html("$" + monthlyRate2)
+        $('#income-based-amount-3').html("$" + monthlyRate3)
+        $('#dsa-income-based-1-radio').val(monthlyRate)
+        $('#dsa-income-based-2-radio').val(monthlyRate2)
+        $('#dsa-income-based-3-radio').val(monthlyRate3)
+        printOrder()
+    }
+
+    function calculateBaseDuesRate(annualIncome) {
+        // Calculate monthly income
+        var monthlyIncome = annualIncome / 12
+
+        // Calculate dues: 1% of monthly income
+        var dues = monthlyIncome / 100
+
+        // Default to $2 (our minimum) if it would otherwise be 0 or NaN
+        return dues || 2
+    }
+
+    $('#dsa-annual-amount-other').on('change blur', update_total)
+        .on('click keyup change', () => { updateOther('annual'); })
+        .on('click', update_total);
+    $('#dsa-monthly-amount-other').on('change blur', update_total)
+        .on('click keyup change', () => { updateOther('monthly'); })
+        .on('click', update_total);
+    $('#dsa-single-amount-other').on('change blur', update_total)
+        .on('click keyup change', () => { updateOther('single'); })
+        .on('click', update_total);
+
+    $('input[name="amount"]').on('click', dsa_clear_radio_buttons);
+    $('input[name="amount_other_annual"]').on('click', (e) => { dsa_clear_radio_buttons(e); updateOther('annual'); });
+    $('input[name="amount_other_monthly"]').on('click', (e) => { dsa_clear_radio_buttons(e); updateOther('monthly'); });
+    $('input[name="amount_other_single"]').on('click', (e) => { dsa_clear_radio_buttons(e); updateOther('single'); });
+
+    var $recurring_period = $("#id_recurring_period");
+    var $donation_type = $("#id_donation_type");
+
+    function clearAmounts() {
+        $('input.ak-amount-radio-button').prop('checked', false);
+        $('input.ak-amount-radio-button').parent().prop('class', "radio-container dsa-amount-label");
+        $('#dsa-annual-amount-other').val("");
+        $('#dsa-monthly-amount-other').val("");
+        $('#dsa-single-amount-other').val("");
+        $('#dsa-income-based-amount-other').val("");
+        $('#ak-other-amount-field').val("");
+    }
+
+    function setDuesCategory(event) {
+        clearAmounts()
+
+        var $input = $(event.target)
+        var category = $input.data('category')
+        var period = $input.data('period')
+
+        // Donation type is 'single' if period is 'single' and 'recurring' for any other value
+        var type = period === 'single' ? 'single' : 'recurring'
+
+        $recurring_period.val(period)
+        $donation_type.val(type)
+
+        // Show the associated pricing options ("Choose an amount") for the selected category
+        $(".dsa-plan-choices").css("display","none")
+        $("#dsa-" + category + "-choices").css("display","block")
+        $(".dsa-" + category + "-radio-default").prop("checked", true).parent().addClass("ak-radio-checked")
+
+        // Record the dues category in our custom action field
+        $("#action_dues_category").val(category)
+
+        printOrder()
+    }
+
+    // Handle custom dues amounts (options with "Other" and a text input)
+    function updateOther(plan) {
+        console.log("update other", plan)
+        console.log($("#dsa-"+plan+"-amount-other").val())
+        $("#ak-other-amount-field").val($("#dsa-"+plan+"-amount-other").val())
+        console.log($("#ak-other-amount-field").val())
+        printOrder();
+    }
+
+    function printOrder() {
+        var textly = ""
+        if ($recurring_period.val() == "months") {
+            textly = "monthly";
+        } else if ($recurring_period.val() == "years") {
+            textly = "yearly";
+        } else if ($recurring_period.val() == "single") {
+            textly = "once";
+        }
+        $("#dsa-preview-amount").html("$" + update_total() + " billed " + textly)
+    }
+
+    function onStartup() {
+        $(".dsa-plan-choices").css("display","none");
+        $('input[name="dsa_period"]').prop('checked', false);
+        $('input[name="amount"]').prop("checked", false);
+        $('input[name="amount_other"]').prop("checked", false);
+        $('#ak-other-amount-field').val("");
+        $('input.ak-amount-radio-button').prop('checked', false);
+        $('input.ak-amount-radio-button').parent().prop('class', "radio-container dsa-amount-label");
+    }
+    console.log("Running onStartup()")
+    onStartup();
+
+    // Select income-based dues as default on renewal page.
+
+    {% if page.name == "membership" or page.name == "membership_embed" or page.name = "membership_monthly_only" or page.name == "joinNYC" or page.name == "ydsa_membership_rate" %}
+        $('#dsa_period_monthly').click();
+    {% else %}
+        $('#dsa_period_income-based').click();
+    {% endif %}
+
+    $('input[name="dsa_period"], input[name="amount"], input[name="amount_other"], .ak-amount-radio-button').on('click', (e) => {
+        if (!e.hasOwnProperty('originalEvent')) {
+            console.log("Rerunning onStartup()");
+            onStartup();
+        }
+    });
+</script>

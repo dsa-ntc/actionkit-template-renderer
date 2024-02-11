@@ -1,0 +1,94 @@
+<input type="hidden" id="ak-other-amount-field" name="amount_other" size="3">
+<div id="dsa-annual-choices" class="dsa-plan-choices">
+    {% for amount in page.custom_fields.annual_amounts|split:"," %}
+        {% if amount == "other" %}
+            <label class="radio-container dsa-amount-label" for="dsa-annual-radio-other">
+                <span class="dsa-h2">Custom</span>
+                <span>$
+                    <input type="text" placeholder=" ?" id="dsa-annual-amount-other" name="dsa-annual-amount-other" size="3" >
+                    / year</span>
+                <input type="radio" id="dsa-annual-radio-other" class="dsa-radio ak-amount-radio-button" name="amount_other_annual">
+                <span class="radio-checkmark"></span>
+            </label>
+        {% else %}
+            {% with tier=page.custom_fields.annual_tiers|split:","|nth:forloop.counter0 %}
+                <label class="radio-container dsa-amount-label" for="dsa-annual-radio-{{amount}}">
+                    <span class="dsa-h2">{{tier}}</span>
+                    <span>${{amount}} / year</span>
+                    <input type="radio" id="dsa-annual-radio-{{amount}}" class="dsa-radio ak-amount-radio-button {% if amount == page.custom_fields.annual_default %} dsa-annual-radio-default {%endif%}" name="amount" value="{{amount}}.00">
+                    <span class="radio-checkmark"></span>
+                </label>
+            {% endwith %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div id="dsa-monthly-choices" class="dsa-plan-choices">
+    {% for amount in page.custom_fields.monthly_amounts|split:"," %}
+        {% if amount == "other" %}
+            <label class="radio-container dsa-amount-label" for="dsa-monthly-radio-other">
+                <span class="dsa-h2">Custom</span>
+                <span>$
+                    <input type="text" placeholder=" ?" id="dsa-monthly-amount-other" name="dsa-monthly-amount-other" size="3" >
+                    / month</span>
+                <input type="radio" id="dsa-monthly-radio-other" class="dsa-radio ak-amount-radio-button" name="amount_other_monthly">
+                <span class="radio-checkmark"></span>
+            </label>
+        {% else %}
+            {% with tier=page.custom_fields.monthly_tiers|split:","|nth:forloop.counter0 %}
+                <label class="radio-container dsa-amount-label" for="dsa-monthly-radio-{{amount}}">
+                    <span class="dsa-h2">{{tier}}</span>
+                    <span>${{amount}} / month</span>
+                    <input type="radio" id="dsa-monthly-radio-{{amount}}" class="dsa-radio ak-amount-radio-button {% if amount == page.custom_fields.monthly_default %} dsa-monthly-radio-default {%endif%}" name="amount" value="{{amount}}.0">
+                    <span class="radio-checkmark"></span>
+                </label>
+            {% endwith %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div id="dsa-single-choices" class="dsa-plan-choices">
+    {% for amount in page.custom_fields.annual_amounts|split:"," %}
+        {% if amount == "other" %}
+            <label class="radio-container dsa-amount-label" for="dsa-single-radio-other">
+                <span class="dsa-h2">Custom</span>
+                <span>$
+                    <input type="text" placeholder=" ?" id="dsa-single-amount-other" name="dsa-single-amount-other" size="3" >
+                </span>
+                <input type="radio" id="dsa-single-radio-other" class="dsa-radio ak-amount-radio-button" name="amount_other_single">
+                <span class="radio-checkmark"></span>
+            </label>
+        {% else %}
+            {% with tier=page.custom_fields.annual_tiers|split:","|nth:forloop.counter0 %}
+                <label class="radio-container dsa-amount-label" for="dsa-single-radio-{{amount}}">
+                    <span class="dsa-h2">{{tier}}</span>
+                    <span>${{amount}}</span>
+                    <input type="radio" id="dsa-single-radio-{{amount}}" class="dsa-radio ak-amount-radio-button {% if amount == page.custom_fields.annual_default %} dsa-single-radio-default {%endif%}" name="amount" value="{{amount}}">
+                    <span class="radio-checkmark"></span>
+                </label>
+            {% endwith %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div id="dsa-income-based-choices" class="dsa-plan-choices">
+    <label class="dsa-amount-label ak-styled-fields" for="dsa-income-based-annual-income">
+        <span class="dsa-h2">Enter your yearly income and we'll calculate your monthly dues payment</span>
+        <div>Annual Income <span class="inline-currency-sym"><input class="inline-input" type="number" min="0" value="0" pattern="[0-9]*" required id="dsa-income-based-annual-income" ></span></div>
+    </label>
+    <label class="radio-container dsa-amount-label">
+        <span class="dsa-h2">1% of monthly income:</span>
+        <span id="income-based-amount-1">$0</span><span> / month</span>
+        <input type="radio" id="dsa-income-based-1-radio" class="dsa-radio ak-amount-radio-button dsa-income-based-radio-default" name="amount" value="">
+        <span class="radio-checkmark"></span>
+    </label>
+    <label class="radio-container dsa-amount-label">
+        <span class="dsa-h2">2% of monthly income:</span>
+        <span id="income-based-amount-2">$0</span><span> / month</span>
+        <input type="radio" id="dsa-income-based-2-radio" class="dsa-radio ak-amount-radio-button" name="amount" value="">
+        <span class="radio-checkmark"></span>
+    </label>
+    <label class="radio-container dsa-amount-label">
+        <span class="dsa-h2">3% of monthly income:</span>
+        <span id="income-based-amount-3">$0</span><span> / month</span>
+        <input type="radio" id="dsa-income-based-3-radio" class="dsa-radio ak-amount-radio-button" name="amount" value="">
+        <span class="radio-checkmark"></span>
+    </label>
+</div>
