@@ -13,10 +13,12 @@ description = "actionkit-templates allows you to view your ActionKit templates l
 dependencies = [
     "django==3.2.6",
     "requests>=2.22.0",
+    "mysqlclient==2.2.1",
     "pytest-django",
     "django_extensions",
     "werkzeug",
-    "ruff"
+    "ruff",
+    "python-dotenv",
 ]
 keywords = ["actionkit"]
 classifiers = [
@@ -31,13 +33,13 @@ license = { file = "LICENSE" }
 requires-python = "<3.12"
 
 [project.scripts]
-aktemplates = "dsa_actionkit.aktemplates:serve_templates"
+aktemplates = "mydsa.aktemplates:serve_templates"
 
 [project.optional-dependencies]
 test = ["selenium>=3.8.0", "pyvirtualdisplay"]
 
 [tool.setuptools.package-data]
-"dsa_actionkit" = ["contexts/*.csv", "templates/*.html"]
+"mydsa" = ["contexts/*.csv", "templates/*.html"]
 
 [tool.setuptools.packages]
 find = { namespaces = false }
@@ -64,6 +66,6 @@ testpaths = [
     "tests",
     "integration",
 ]
-DJANGO_SETTINGS_MODULE = "dsa_actionkit.settings"
+DJANGO_SETTINGS_MODULE = "mydsa.settings"
 # -- recommended but optional:
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]

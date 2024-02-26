@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser, User
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 ###
 # Order of models based on grouping in AK DB reference guide
@@ -507,7 +507,8 @@ class CoreAllowedPageField(models.Model):
     """Custom field created by your group to display text or activate custom code on a particular page."""
 
     name = models.CharField(
-        primary_key=True, max_length=255, #db_collation="utf8mb3_general_ci"
+        primary_key=True,
+        max_length=255,  # db_collation="utf8mb3_general_ci"
     )
     hidden = models.IntegerField()
     created_at = models.DateTimeField()
@@ -519,7 +520,7 @@ class CoreAllowedPageField(models.Model):
     field_default = models.TextField()
     field_choices = models.TextField()
     field_regex = models.TextField()
-    field_type = models.CharField(max_length=32) #, db_collation="utf8mb3_general_ci")
+    field_type = models.CharField(max_length=32)  # , db_collation="utf8mb3_general_ci")
     field_length = models.IntegerField(blank=True, null=True)
     required = models.IntegerField()
     allow_multiple = models.IntegerField()
@@ -1563,7 +1564,13 @@ class EventsEmailLog(models.Model):
     to_type = models.CharField(max_length=32)
     event = models.ForeignKey(Event, models.DO_NOTHING)
     from_user = models.ForeignKey("CoreUser", models.DO_NOTHING, blank=True, null=True)
-    from_admin = models.ForeignKey(User, models.DO_NOTHING, related_name="staff_eventsemaillog", blank=True, null=True)
+    from_admin = models.ForeignKey(
+        User,
+        models.DO_NOTHING,
+        related_name="staff_eventsemaillog",
+        blank=True,
+        null=True,
+    )
     user_written_subject = models.TextField(blank=True, null=True)
     body = models.ForeignKey(EventsEmailBodyLog, models.DO_NOTHING)
 
@@ -1702,7 +1709,7 @@ class EventsCustomEmail(models.Model):
     group = models.ForeignKey(EventsCustomEmailGroup, models.DO_NOTHING)
     email_subject = models.TextField(blank=True, null=True)
     email_body = models.TextField(blank=True, null=True)
-    type = models.CharField(max_length=50) #, db_collation="utf8mb3_general_ci")
+    type = models.CharField(max_length=50)  # , db_collation="utf8mb3_general_ci")
 
     class Meta:
         managed = True
@@ -1892,7 +1899,13 @@ class CoreDonationChangeLog(models.Model):
     )
     new_amount = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey("CoreUser", models.DO_NOTHING, blank=True, null=True)
-    staff = models.ForeignKey(User, models.DO_NOTHING, related_name="staff_donationchangelog", blank=True, null=True)
+    staff = models.ForeignKey(
+        User,
+        models.DO_NOTHING,
+        related_name="staff_donationchangelog",
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         managed = True
@@ -2360,7 +2373,8 @@ class CoreAllowedMailingField(models.Model):
     updated_at = models.DateTimeField()
     hidden = models.IntegerField()
     name = models.CharField(
-        primary_key=True, max_length=255, #db_collation="utf8mb3_general_ci"
+        primary_key=True,
+        max_length=255,  # db_collation="utf8mb3_general_ci"
     )
     always_show = models.IntegerField()
     display_name = models.CharField(unique=True, max_length=255)
@@ -2369,7 +2383,7 @@ class CoreAllowedMailingField(models.Model):
     field_default = models.TextField()
     field_choices = models.TextField()
     field_regex = models.TextField()
-    field_type = models.CharField(max_length=32) #, db_collation="utf8mb3_general_ci")
+    field_type = models.CharField(max_length=32)  # , db_collation="utf8mb3_general_ci")
     field_length = models.IntegerField(blank=True, null=True)
     required = models.IntegerField()
     allow_multiple = models.IntegerField()
@@ -4284,16 +4298,16 @@ class CoreUploadWarning(models.Model):
 # User Tables
 class CoreUser(User):
     """User contact info, user_id, and source of the first action the user took."""
-    
+
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
-    #email = models.CharField(unique=True, max_length=255)
+    # email = models.CharField(unique=True, max_length=255)
     prefix = models.CharField(max_length=255)
-    #first_name = models.CharField(max_length=255)
+    # first_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255)
-    #last_name = models.CharField(max_length=255)
+    # last_name = models.CharField(max_length=255)
     suffix = models.CharField(max_length=255)
-    #password = models.CharField(max_length=255)
+    # password = models.CharField(max_length=255)
     subscription_status = models.CharField(max_length=255)
     address1 = models.CharField(max_length=255)
     address2 = models.CharField(max_length=255)
@@ -4318,7 +4332,8 @@ class CoreAllowedUserField(models.Model):
     """Field created by your group to capture user-specific data."""
 
     name = models.CharField(
-        primary_key=True, max_length=255, #db_collation="utf8mb3_general_ci"
+        primary_key=True,
+        max_length=255,  # db_collation="utf8mb3_general_ci"
     )
     hidden = models.IntegerField()
     created_at = models.DateTimeField()
@@ -4330,7 +4345,7 @@ class CoreAllowedUserField(models.Model):
     field_default = models.TextField()
     field_choices = models.TextField()
     field_regex = models.TextField()
-    field_type = models.CharField(max_length=32) #, db_collation="utf8mb3_general_ci")
+    field_type = models.CharField(max_length=32)  # , db_collation="utf8mb3_general_ci")
     field_length = models.IntegerField(blank=True, null=True)
     required = models.IntegerField()
     allow_multiple = models.IntegerField()
@@ -4663,14 +4678,15 @@ class CmsAllowedTemplatesetField(models.Model):
     order_index = models.IntegerField()
     display_name = models.CharField(unique=True, max_length=255)
     name = models.CharField(
-        primary_key=True, max_length=255, #db_collation="utf8mb3_general_ci"
+        primary_key=True,
+        max_length=255,  # db_collation="utf8mb3_general_ci"
     )
     always_show = models.IntegerField()
     description = models.TextField(blank=True, null=True)
     field_default = models.TextField()
     field_choices = models.TextField()
     field_regex = models.TextField()
-    field_type = models.CharField(max_length=32) #, db_collation="utf8mb3_general_ci")
+    field_type = models.CharField(max_length=32)  # , db_collation="utf8mb3_general_ci")
     field_length = models.IntegerField(blank=True, null=True)
     required = models.IntegerField()
     allow_multiple = models.IntegerField()
@@ -6428,7 +6444,7 @@ class PushEndpoint(models.Model):
     updated_at = models.DateTimeField()
     hidden = models.IntegerField()
     url = models.CharField(max_length=255)
-    name = models.CharField(max_length=255) #, db_collation="utf8mb4_unicode_ci")
+    name = models.CharField(max_length=255)  # , db_collation="utf8mb4_unicode_ci")
     triggers = models.JSONField()
     ratelimit = models.IntegerField()
     retries = models.IntegerField()

@@ -34,7 +34,7 @@
                     {{ profile.amt }}
                 </div>
                 <div>
-                    {%if not profile.is_import_stub %}<a href="#" onclick="return ak_recurring_change_amount('{{ profile.id }}');" class="ak-change-amount-link">Change amount</a>{% endif %}
+                    {% if not profile.is_import_stub %}<a href="#" onclick="return ak_recurring_change_amount('{{ profile.id }}');" class="ak-change-amount-link">Change amount</a>{% endif %}
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                     Expiration {{ profile.display_expiration_date }}
                 </div>
                 <div>
-                   {%if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change credit card information</a>{% endif %}
+                   {% if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change credit card information</a>{% endif %}
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
                   {% endif %}
                 </div>
                 <div>
-                   {%if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change bank information</a>{% endif %}
+                   {% if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change bank information</a>{% endif %}
                 </div>
             </div>
         </div>
@@ -257,7 +257,6 @@
                 </script>
             </div>
 
-            {% endif %}
         {% endif %}
 
         {% if profile.is_ach %}

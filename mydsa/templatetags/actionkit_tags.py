@@ -21,9 +21,11 @@ to figure out how to do the least work.
 
 register = Library()
 
+
 class NoContentNode(Node):
     def render(self, context):
         return ""
+
 
 class StaticContentNode(Node):
     def __init__(self, staticcontent):
@@ -31,6 +33,7 @@ class StaticContentNode(Node):
 
     def render(self, context):
         return self.staticcontent
+
 
 class OnceNode(Node):
     rendered = False
@@ -45,9 +48,10 @@ class OnceNode(Node):
         else:
             return ""
 
+
 class SetVarNode(Node):
 
-    def __init__ (self, var_name, var_value):
+    def __init__(self, var_name, var_value):
         self.name = var_name
         self.value = var_value
 
@@ -74,13 +78,14 @@ class RecordNode(Node):
         ary.append(item)
         return ""
 
+
 @register.tag
 def once(parser, token):
-    """Use the tag once to wrap template code that will only be rendered one time.
-    """
+    """Use the tag once to wrap template code that will only be rendered one time."""
     nodelist = parser.parse(("endonce",))
     parser.delete_first_token()
     return OnceNode(nodelist)
+
 
 @register.tag
 def record(parser, token):
@@ -100,10 +105,14 @@ def record(parser, token):
         reportresult = True
         tokens = tokens[1:]
     return RecordNode(item=tokens[1], ary=tokens[3], reportresult=reportresult)
+
+
 @register.tag
 def remember(parser, token):
     tokens = token.split_contents()
-    return SetVarNode(tokens[3],tokens[1])
+    return SetVarNode(tokens[3], tokens[1])
+
+
 @register.tag
 def right_now(parser, token):
     """The tag right_now creates the variable {{ now }}
@@ -111,29 +120,36 @@ def right_now(parser, token):
     """
     return SetVarNode("now", datetime.datetime.now(timezone.utc))
 
+
 @register.simple_tag
 def client_name():
     return getattr(settings, "AK_CLIENT_NAME", "--AK ClientName--")
+
 
 @register.simple_tag
 def facebook_app():
     return getattr(settings, "AK_FACEBOOK_APP", "--facebook appid!--")
 
+
 @register.simple_tag
 def client_domain():
     return getattr(settings, "AK_CLIENT_DOMAIN", "roboticdogs.actionkit.com")
+
 
 @register.simple_tag
 def include_tmpl(field, *args):
     return safe("%s" % field)
 
+
 @register.simple_tag
 def load_ak_context(somestring, *args, **kwargs):
     return ""
 
+
 @register.simple_tag
 def load_prefill(*args, **kwargs):
     return ""
+
 
 @register.simple_tag
 def braintree_js_libs():
@@ -144,6 +160,7 @@ def braintree_js_libs():
     <script src="https://js.braintreegateway.com/web/3.27.0/js/us-bank-account.min.js"></script>
     """
 
+
 @register.simple_tag
 def authnet_js_libs():
     return """
@@ -151,10 +168,12 @@ def authnet_js_libs():
     </script>
     """
 
+
 @register.tag
 def field_order(parser, token):
     "Takes a set of fields and sets the order for the form"
     return NoContentNode()
+
 
 @register.tag
 def hide_by_default(parser, token):
@@ -195,22 +214,30 @@ def load_css(parser, token):
     nodelist = parser.parse(("end",))
     parser.delete_first_token()
     source = nodelist[0].s
-    parsed = "".join([
-        """<link rel="stylesheet" href="%s" />""" % _add_domain(s.strip())
-        for s in source.strip().splitlines()
-        if s and s.strip()
-    ])
+    parsed = "".join(
+        [
+            """<link rel="stylesheet" href="%s" />""" % _add_domain(s.strip())
+            for s in source.strip().splitlines()
+            if s and s.strip()
+        ]
+    )
     return StaticContentNode(parsed)
+
 
 @register.tag
 def load_js(parser, token):
     nodelist = parser.parse(("end",))
     parser.delete_first_token()
     source = nodelist[0].s
-    parsed = "".join(["""
+    parsed = "".join(
+        [
+            """
     <script src="%s" ></script>
-    """ % _add_domain(s)
-        for s in re.findall(r"[^\s]+js", source)])
+    """
+            % _add_domain(s)
+            for s in re.findall(r"[^\s]+js", source)
+        ]
+    )
     return StaticContentNode(parsed)
 
 
@@ -218,29 +245,36 @@ def load_js(parser, token):
 def split(value, arg=" "):
     return value.split(arg)
 
+
 @register.filter
 def startswith(value, arg):
     return value.startswith(arg)
+
 
 @register.filter
 def truncateletters(value, arg):
     return value[:arg]
 
+
 @register.filter
 def is_in(value, arg):
     return arg in value
+
 
 @register.filter
 def nth(value, arg):
     return value[arg]
 
+
 @register.filter
 def get(value, arg):
     return value[arg]
 
+
 @register.filter
 def mod(value, arg):
     return int(value or 0) % int(arg)
+
 
 @register.filter
 def add(value, arg):
@@ -248,9 +282,11 @@ def add(value, arg):
     arg_mod = int(float(arg)) if int(float(arg)) == float(arg) else float(arg)
     return value_mod + arg_mod
 
+
 @register.filter
 def subtract(value, arg):
     return float(value) - float(arg)
+
 
 @register.filter
 def date_add(value, arg):
@@ -264,56 +300,69 @@ def date_add(value, arg):
                 kwargs[k] = int(val)
     return value + datetime.timedelta(**kwargs)
 
+
 @register.filter
 def multiply(value, arg):
     value_mod = int(float(value)) if int(float(value)) == float(value) else float(value)
     arg_mod = int(float(arg)) if int(float(arg)) == float(arg) else float(arg)
     return value_mod * arg_mod
 
+
 @register.filter
 def percent_of(value, arg):
     return "%.1f" % (100 * (float(value) / float(arg)))
+
 
 @register.simple_tag
 def authnet_js_libs():
     return ""
 
+
 @register.simple_tag
 def braintree_js_libs():
     return ""
+
 
 @register.simple_tag
 def client_domain_url(path=""):
     return "%s/%s" % (client_domain(), path)
 
+
 @register.simple_tag
 def divide(top, bottom, precision):
-    return f"%.{precision}f" % (float(top)/float(bottom))
+    return f"%.{precision}f" % (float(top) / float(bottom))
+
 
 @register.filter
 def escapeall(value):
     return value
 
+
 @register.filter
 def json(value):
     import json as jjson
+
     return jjson.dumps(jjson.loads(value))
+
 
 @register.filter
 def load_json(value):
     import json as jjson
+
     return jjson.loads(value)
+
 
 @register.filter
 def ak_field_label(value, arg):
     return "%s|%s|" % (arg, value)
 
+
 @register.filter
 def tag_links(value, arg):
-    """{% filter referring_akid:akid|tag_links:"source=taf" %}{% include_tmpl page.followup.taf_body escaped %}{% endfilter %}
-    """
+    """{% filter referring_akid:akid|tag_links:"source=taf" %}{% include_tmpl page.followup.taf_body escaped %}{% endfilter %}"""
     # this hackily doesn't try to do good things with a pre-existing "?" in the url
     return re.sub(r'(https?://[^"\'() ]+)', "\\1?%s" % arg, value)
+
 
 @register.filter
 def commify(value):
@@ -326,19 +375,23 @@ def commify(value):
         parts = value.split(".")
         return "{}.{}".format(format(int(parts[0]), ",d"), parts[1])
 
+
 @register.filter
 def concatenate(value, arg):
     "Add commas for numeric values"
     return f"{value}{arg}"
+
 
 @register.filter
 def custom_hash(value):
     "This creates a custom akid generation"
     return "{}.{}".format(value, "fakehash")
 
+
 @register.filter
 def is_defined(value):
     return bool(value)
+
 
 @register.filter
 def is_nonblank(value):
@@ -349,28 +402,35 @@ def is_nonblank(value):
     and <p></p><div class="lol">&nbsp;</div> would all return False.
     """
     if value:
-        return bool(re.sub(r"\s", "", strip_tags(value).replace("&nbsp;","")))
+        return bool(re.sub(r"\s", "", strip_tags(value).replace("&nbsp;", "")))
     return False
+
 
 @register.filter
 def strip(value):
     return value.strip()
 
+
 @register.filter
 def columns(value, cols):
     "{% for row in amounts|columns:3 %}"
     vlen = len(value)
-    return [ [value[i] for i in range(x,vlen,cols)]
-             for x in range(cols)]
+    return [[value[i] for i in range(x, vlen, cols)] for x in range(cols)]
+
 
 @register.filter
 def referring_akid(value, akid):
-    """example:{% filter referring_akid:akid|tag_links:"source=taf" %}{% include_tmpl page.followup.taf_body escaped %}{% endfilter %}
-    """
-    return re.sub(r'(https?://[^"\'() ]+)', "\\1%sreferring_akid=%s" % (
-        ("&" if "?" in value else "?"),
-        akid,
-    ), value)
+    """example:{% filter referring_akid:akid|tag_links:"source=taf" %}{% include_tmpl page.followup.taf_body escaped %}{% endfilter %}"""
+    return re.sub(
+        r'(https?://[^"\'() ]+)',
+        "\\1%sreferring_akid=%s"
+        % (
+            ("&" if "?" in value else "?"),
+            akid,
+        ),
+        value,
+    )
+
 
 @register.filter
 def collapse_spaces(value):
@@ -379,6 +439,7 @@ def collapse_spaces(value):
     """
     return re.sub(r"(?![\r\n])\s+", " ", re.sub(r"[\r\n]+", "\n", value))
 
+
 @register.filter
 def get(value, key):
     if hasattr(value, "get"):
@@ -386,21 +447,26 @@ def get(value, key):
     elif hasattr(value, key):
         return getattr(value, key)
 
+
 @register.filter
 def matches(value, regex):
     return bool(re.search(regex, value))
+
 
 @register.filter
 def strip_nondigits(value):
     return re.sub(r"\D", "", value)
 
+
 @register.filter
 def remove_blank_lines(value):
     return re.sub(r"\n\s*\n", "\n", value)
 
+
 @register.filter
 def is_nonblank(value):
     return value != ""
+
 
 @register.filter
 def ak_text(value, arg):
@@ -409,5 +475,5 @@ def ak_text(value, arg):
     {% filter ak_text:"notaf_thanks_banner" %}
     {% filter ak_text:"taf_ask" %}{% endfilter %}
     """
-    #this would be overridden by some variable if it existed in the instance
+    # this would be overridden by some variable if it existed in the instance
     return value

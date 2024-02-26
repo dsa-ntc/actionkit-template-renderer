@@ -6,6 +6,7 @@ register = Library()
 # found from:
 # https://www.djangosnippets.org/snippets/967/
 
+
 @register.tag(name="switch")
 def do_switch(parser, token):
     """The ``{% switch %}`` tag compares a variable against one or more values in
@@ -43,6 +44,7 @@ def do_switch(parser, token):
         # of Parser.parse() relating to the "parse_until" argument.
         def __init__(self, *names):
             self.names = set(names)
+
         def __contains__(self, token_contents):
             name = token_contents.split()[0]
             return name in self.names
@@ -78,6 +80,7 @@ def do_switch(parser, token):
         raise TemplateSyntaxError("'%s' must have at least one 'case'." % tag_name)
 
     return SwitchNode(variable, cases)
+
 
 class SwitchNode(Node):
     def __init__(self, variable, cases):

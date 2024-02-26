@@ -26,7 +26,7 @@ Performing system checks...
 
 System check identified no issues (0 silenced).
 December 14, 2023 - 22:24:28
-Django version 3.2.6, using settings 'dsa_actionkit.settings'
+Django version 3.2.6, using settings 'mydsa.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
@@ -115,11 +115,11 @@ See documentation in [TESTING.md](./TESTING.md)
 Template Tags
 -------------
 
-Usually, these are easy to add here [dsa_actionkit/templatetags/actionkit_tags.py](https://github.com/dsa-ntc/actionkit-templates/blob/master/dsa_actionkit/templatetags/actionkit_tags.py) Actionkit provides implementations [here](https://roboticdogs.actionkit.com/docs/manual/guide/customtags.html)
+Usually, these are easy to add here [mydsa/templatetags/actionkit_tags.py](https://github.com/dsa-ntc/actionkit-templates/blob/master/mydsa/templatetags/actionkit_tags.py) Actionkit provides implementations [here](https://roboticdogs.actionkit.com/docs/manual/guide/customtags.html)
 
 Extra contexts
 --------------
 
 If you make a context that's not covered already, please contribute with a patch to
-[dsa_actionkit/contexts/](https://github.com/dsa-ntc/actionkit-templates/tree/master/dsa_actionkit/contexts) Note that these are also useful to browse to see
+[mydsa/contexts/](https://github.com/dsa-ntc/actionkit-templates/tree/master/mydsa/contexts) Note that these are also useful to browse to see
 what variables you can access from a particular page context.

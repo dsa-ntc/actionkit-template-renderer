@@ -1,6 +1,6 @@
-#this is for /context/ loading for updating page in
-#https://roboticdogs.actionkit.com/context/test_create?callback=actionkit.forms.onContextLoaded&form_name=act&action_id=117202230&ar=1&required=email&required=country&want_prefill_data=1&r=0.20345950596532325&url=https://roboticdogs.actionkit.com/event/scott-test_create/create/?action_id=117202230&update=1&want_prefill_data=1
-#should be wrapped in actionkit.forms.onContextLoaded()
+# this is for /context/ loading for updating page in
+# https://roboticdogs.actionkit.com/context/test_create?callback=actionkit.forms.onContextLoaded&form_name=act&action_id=117202230&ar=1&required=email&required=country&want_prefill_data=1&r=0.20345950596532325&url=https://roboticdogs.actionkit.com/event/scott-test_create/create/?action_id=117202230&update=1&want_prefill_data=1
+# should be wrapped in actionkit.forms.onContextLoaded()
 event_json = {
     "allowed_fields": {
         "action_id": 1,

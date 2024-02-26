@@ -1,4 +1,5 @@
-from . import account_contexts, donation_contexts, event_contexts, survey_contexts
+from . import (account_contexts, donation_contexts, event_contexts,
+               survey_contexts)
 
 contexts = {
     "base": {
@@ -16,8 +17,8 @@ contexts = {
             "filename": "logout.html",
         },
     },
-    #kinda silly, but avoid appending to the bottom because then git merge conflicts arise more often.
-    #let's do the context values in alphabetical order.
+    # kinda silly, but avoid appending to the bottom because then git merge conflicts arise more often.
+    # let's do the context values in alphabetical order.
 }
 
 contexts.update({"donations": donation_contexts.contexts})
