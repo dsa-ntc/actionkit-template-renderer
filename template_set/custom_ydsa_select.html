@@ -29,7 +29,7 @@
     <select name="user_ydsachapter1" id="id_user_ydsachapter1" class="ak-userfield-input">
         <option value="" selected>-----</option>
         <option value="Other">Other</option>
-        {% for chapter in page.custom_fields.listed_ydsa_chapters|linebreaksbr|split:"<br>" %}
+        {% for chapter in page_custom_field_listed_ydsa_chapters|linebreaksbr|split:"<br>" %}
             <option value="{{chapter}}">{{chapter}}</option>
         {% endfor %}
     </select>

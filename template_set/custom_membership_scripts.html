@@ -121,10 +121,9 @@
     console.log("Running onStartup()")
     onStartup();
 
-    // Select income-based dues as default on renewal page.
-
-    {% if page.name == "membership" or page.name == "membership_embed" or page.name = "membership_monthly_only" or page.name == "joinNYC" or page.name == "ydsa_membership_rate" %}
-        $('#dsa_period_monthly').click();
+    {% if page_custom_field_default_dues_category %}
+        $("#dsa_period_{{ page_custom_field_default_dues_category }}").click();
+        what
     {% else %}
         $('#dsa_period_income-based').click();
     {% endif %}

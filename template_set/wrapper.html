@@ -1,4 +1,5 @@
 {% load actionkit_tags %}
+{% include "./custom_magic_words.html" %}
 <!DOCTYPE html>
 <html lang="{{page.lang.iso_code|default:'en'}}"{% if page.lang.is_rtl %} dir="rtl"{% endif %}>
     <head>
@@ -308,12 +309,10 @@
                 opacity: 1;
             }
 
-            {% if page.id == 1030 %}
-
+            {% if page_custom_field_embeddable %}
                 body {
                     background: none !important;
                 }
-
             {% endif %}
 
             .ak-page-header {
@@ -375,7 +374,7 @@
     <body class="ak-pagetype-{{ filename|split:'.'|nth:0 }} ak-lang-{{page.lang.iso_code|default:"unknown"}}{% if page.lang.is_rtl %} ak-rtl{% endif %} ak-no-js {% block body_extra_classes %}{% endblock %}">
         <script type="text/javascript">actionkit.forms.initPage()</script>
 
-        {% if page.name != 'membership_embed' %}
+        {% if not page_custom_field_embeddable %}
             <div class="ak-page-header">
                 <div class="ak-page-header-contents">
                     {% if page.name == 'legacy-circle' %}
@@ -393,7 +392,7 @@
 
         {% block content %}{% endblock %}
 
-        {% if page.name != 'membership_embed' %}
+        {% if not page_custom_field_embeddable %}
             <div class="ak-page-footer">
                 <div class="ak-page-footer-contents">
                     <span>{% filter ak_text:"org_name" %}{% client_name %}{% endfilter %}</span>

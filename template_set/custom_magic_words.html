@@ -1,0 +1,45 @@
+{# This template stores "magic words": names of pages, tags, and custom fields that are switched upon within the templates.#}
+
+{# First, record default values for magic strings. #}
+
+{% remember "this_page_manages_memberships" as tag_this_page_manages_memberships %}
+
+{# Next, store the values of custom fields. #}
+
+{% remember page.custom_fields.annual_amounts as page_custom_field_annual_amounts %}
+{% remember page.custom_fields.annual_default as page_custom_field_annual_default %}
+{% remember page.custom_fields.annual_tiers as page_custom_field_annual_tiers %}
+{% remember page.custom_fields.default_dues_category as page_custom_field_default_dues_category %}
+{% remember page.custom_fields.dues_category_exclusions as page_custom_field_dues_category_exclusions %}
+{% remember page.custom_fields.embeddable as page_custom_field_embeddable %}
+{% remember page.custom_fields.hide_membership_header as page_custom_field_hide_membership_header %}
+{% remember page.custom_fields.hide_sibd_logo as page_custom_field_hide_sibd_logo %}
+{% remember page.custom_fields.listed_ydsa_chapters as page_custom_field_listed_ydsa_chapters %}
+{% remember page.custom_fields.monthly_amounts as page_custom_field_monthly_amounts %}
+{% remember page.custom_fields.monthly_default as page_custom_field_monthly_default %}
+{% remember page.custom_fields.monthly_tiers as page_custom_field_monthly_tiers %}
+{% remember page.custom_fields.show_membership_full_pitch as page_custom_field_show_membership_full_pitch %}
+
+{% if templateset.custom_fields.robotic_dogs %}
+
+    {# Then, add the dsausa_ prefix to magic strings if on Robotic Dogs. #}
+
+    {% remember "dsausa_"|concatenate:tag_this_page_manages_memberships as tag_this_page_manages_memberships %}
+
+    {# Lastly, store the values of custom fields with the dsausa_ prefix. #}
+
+    {% remember page.custom_fields.dsausa_annual_amounts as page_custom_field_annual_amounts %}
+    {% remember page.custom_fields.dsausa_annual_default as page_custom_field_annual_default %}
+    {% remember page.custom_fields.dsausa_annual_tiers as page_custom_field_annual_tiers %}
+    {% remember page.custom_fields.dsausa_default_dues_category as page_custom_field_default_dues_category %}
+    {% remember page.custom_fields.dsausa_dues_category_exclusions as page_custom_field_dues_category_exclusions %}
+    {% remember page.custom_fields.dsausa_embeddable as page_custom_field_embeddable %}
+    {% remember page.custom_fields.dsausa_hide_membership_header as page_custom_field_hide_membership_header %}
+    {% remember page.custom_fields.dsausa_hide_sibd_logo as page_custom_field_hide_sibd_logo %}
+    {% remember page.custom_fields.dsausa_listed_ydsa_chapters as page_custom_field_listed_ydsa_chapters %}
+    {% remember page.custom_fields.dsausa_monthly_amounts as page_custom_field_monthly_amounts %}
+    {% remember page.custom_fields.dsausa_monthly_default as page_custom_field_monthly_default %}
+    {% remember page.custom_fields.dsausa_monthly_tiers as page_custom_field_monthly_tiers %}
+    {% remember page.custom_fields.dsausa_show_membership_full_pitch as page_custom_field_show_membership_full_pitch %}
+
+{% endif %}

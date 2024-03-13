@@ -9,9 +9,10 @@ from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.static import serve
+from django.contrib.auth import login
 
 from mydsa.moveon_fakeapi import mo_event_data
-
+from mydsa.models import CoreOrder, CoreUser
 
 def _get_context_data(request, name=None, page=None, use_referer=False):
     from mydsa.contexts.page_contexts import contexts
@@ -88,6 +89,11 @@ def index(request, name=None, page=None):
 # use db config instead of context.json
 def index_db(request, name=None, page=None):
     cxt = _get_context_data(request, name, page)
+    user = CoreUser.objects.get(username="someone")
+    if user:
+        login(request, user)
+    
+    #print(user.coreorder_set.first().total)
     # print("CONTEXT")
     # account_context = cxt if cxt.get("filename") == "recurring_update.html" else {}
     # print(account_context)

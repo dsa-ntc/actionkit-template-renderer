@@ -4,14 +4,13 @@
 
 <div class="layout--spacer-20"></div>
 
-{% if page.name != "joinNYC" and page.name != "membership_embed" and page.name != "membership_monthly_only" and page.name != "membership_sibd_only" %}
-    {% include "./custom_membership_header.html" %}
-    <div class="layout--spacer-20"></div>
-{% endif %}
-
-<div class="pure-g">
-    <div id="donation-form" class="pure-u-1 layout--form image--centered">
-        <form id="act" name="act" class="ak-donate-one-step" method="POST" action="/act/" accept-charset="utf-8">
+<form id="act" name="act" class="ak-donate-one-step" method="POST" action="/act/" accept-charset="utf-8">
+    {% if not page_custom_field_hide_membership_header %}
+        {% include "./custom_membership_header.html" %}
+        <div class="layout--spacer-20"></div>
+    {% endif %}
+    <div class="pure-g">
+        <div id="donation-form" class="pure-u-1 layout--form image--centered">
             <input type="hidden" name="page" value="{{ page.name }}">
             <input type="hidden" name="orig_akid" value="{{ akid }}">
             <div class="ak-grid-row">
@@ -64,7 +63,7 @@
                     <div class="ak-labels-above ak-styled-fields ak-errs-below">
                         {% include "./custom_membership_questions.html" %}
 
-                        {% if page.name == "ydsa_membership_rate" %}
+                        {% if page_custom_field_listed_ydsa_chapters %}
                             {% include "./custom_ydsa_select.html" %}
                         {% endif %}
                     </div>
@@ -76,11 +75,11 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
-{% if page.name == "membership" %}
+{% if page_custom_field_show_membership_full_pitch %}
     {% include "./custom_membership_full_pitch.html" %}
 {% endif %}
 

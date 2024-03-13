@@ -1,0 +1,81 @@
+{% comment %}
+  Load values from a `profile` value (recurring donation/coreorder_recurring)
+{% endcomment %}
+
+
+{% remember "" as profile_type %}
+{% remember "" as profile_dues_category %}
+{% remember "" as profile_recurring_period %}
+
+
+{% comment %}
+  Set recurring donation period `profile_recurring_period`
+{% endcomment %}
+
+{% remember profile.period as profile_recurring_period %}
+
+
+{% comment %}
+  Set `profile_type`: 'dues' | 'donation'
+{% endcomment %}
+
+
+{% for tag in profile.order.action.page.tags.all %}
+
+    {% remember "this_page_manages_memberships" as tag_this_page_manages_memberships %}
+    {% remember "this_page_manages_donations" as tag_this_page_manages_donations %}
+
+    {% if templateset.custom_fields.robotic_dogs %}
+        {% remember "dsausa_"|concatenate:tag_this_page_manages_memberships as tag_this_page_manages_memberships %}
+        {% remember "dsausa_"|concatenate:tag_this_page_manages_donations as tag_this_page_manages_donations %}
+    {% endif %}
+
+    {% if tag.name == tag_this_page_manages_memberships %}
+        {% remember 'memberships' as profile_type %}
+    {% endif %}
+
+    {% if tag.name == tag_this_page_manages_donations %}
+        {% remember 'donations' as profile_type %}
+    {% endif %}
+
+{% endfor %}
+
+
+{% comment %}
+  if dues: Set specific dues category `profile_dues_category`
+  should be either 'monthly' | 'yearly' | 'income-based' | 'single'
+{% endcomment %}
+
+{% if profile_type == "dues" %}
+
+    {% if profile.action.custom_fields.dues_category != "" %}
+        {% remember profile.action.custom_fields.dues_category as profile_dues_category %}
+
+    {% elif profile.order.action.custom_fields.dues_category != "" %}
+        {% remember profile.order.action.custom_fields.dues_category as profile_dues_category %}
+
+  {% comment %}
+    Fall back to period for cases where there is no dues category
+  {% endcomment %}
+
+    {% else %}
+        {% if profile_recurring_period == "months" %}
+            {% remember "monthly" as profile_dues_category %}
+        {% elif profile_recurring_period == "years" %}
+            {% remember "yearly" as profile_dues_category %}
+        {% else %}
+            {% remember "single" as profile_dues_category %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% if args.debug == "yes" %}
+    <script>
+        console.log("profile {{ profile.id }}:", {
+            tags: "{{ profile.order.action.page.tags.all|pprint }}",
+            profile_type: "{{ profile_type }}",
+            profile_recurring_period: "{{ profile_recurring_period }}"
+            profile_dues_category: "{{ profile_dues_category }}",
+        });
+    </script>
+{% endif %}

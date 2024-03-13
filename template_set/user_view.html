@@ -40,12 +40,35 @@
           <h3> Your Dues </h3>
           <ul class="ak-margin-none">
               {% for profile in recurring_donations %}
-                {% if profile.is_active and not profile.is_import_stub %}
+                {% include "custom_load_recurring_profile_context.html" %}
+
+                {% if profile.is_active and not profile.is_import_stub and profile_type == "memberships" %}
+                  <li>
+                      {% if profile_dues_category == "income-based" %}
+                          Solidarity Income-Based
+                      {% endif %}
+                      <strong>{{ profile.amt }}</strong> a {{ profile.inverse_period_display|lower }}, started on {{ profile.created_at|date:"m/d/Y" }}. 
+                      You've given a total of {{ profile.payment_total_amt }}.
+                      {% if profile.order.payment_method != "paypal" %}
+                          <a href="/cms/pledge/update/update?recurring_id={{profile.id}}">Manage your recurring profile.</a>
+                      {% else %}
+                          <a href="/cms/pledge/cancel/monthly/">Cancel via Paypal.</a>
+                      {% endif %} 
+                  </li>
+                {% endif %}
+              {% endfor %}
+          </ul>
+
+          <h3> Other contributions </h3>
+          <ul class="ak-margin-none">
+              {% for profile in recurring_donations %}
+                {% include "custom_load_recurring_profile_context.html" %}
+                {% if profile.is_active and not profile.is_import_stub and profile_type == "donations" %}
                   <li>
                       <strong>{{ profile.amt }}</strong> a {{ profile.inverse_period_display|lower }}, started on {{ profile.created_at|date:"m/d/Y" }}. 
-                      You've given a total of {{ profile.payment_total_amt }}. 
+                      You've given a total of {{ profile.payment_total_amt }}.
                       {% if profile.order.payment_method != "paypal" %}
-                          <a href="/cms/pledge/update/update/">Manage your recurring profile.</a>
+                          <a href="/cms/pledge/update/update?recurring_id={{profile.id}}">Manage your recurring profile.</a>
                       {% else %}
                           <a href="/cms/pledge/cancel/monthly/">Cancel via Paypal.</a>
                       {% endif %} 
@@ -60,7 +83,7 @@
                 {% if not profile.is_active and not profile.is_import_stub %}
                   <li>
                       <strong>{{ profile.amt }}</strong> a {{ profile.inverse_period_display|lower }}, started on {{ profile.created_at|date:"m/d/Y" }}. 
-                      You gave a total of {{ profile.payment_total_amt }}. 
+                      You paid a total of {{ profile.payment_total_amt }}. 
                       <b>{{ profile.get_status_display }} on {{ profile.updated_at|date:"m/d/Y" }} </b>
                   </li>
                 {% endif %}

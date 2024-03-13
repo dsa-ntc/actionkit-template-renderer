@@ -274,7 +274,7 @@
 
 {% block content %}
     {% for tag in page.tags.all %}
-        {% if tag.name == "this_page_manages_memberships" %}
+        {% if tag.name == tag_this_page_manages_memberships %}
             {% remember 1 as this_page_manages_memberships %}
         {% endif %}
     {% endfor %}

@@ -25,6 +25,7 @@
                 {% endif %}
             </div>
         </div>
+        
         <div class="ak-show-amount">
             <label>
                 {{ profile.get_period_display }} Amount
@@ -34,7 +35,7 @@
                     {{ profile.amt }}
                 </div>
                 <div>
-                    {% if not profile.is_import_stub %}<a href="#" onclick="return ak_recurring_change_amount('{{ profile.id }}');" class="ak-change-amount-link">Change amount</a>{% endif %}
+                    {%if not profile.is_import_stub %}<a href="#" onclick="return ak_recurring_change_amount('{{ profile.id }}');" class="ak-change-amount-link">Change amount</a>{% endif %}
                 </div>
             </div>
         </div>
@@ -44,6 +45,7 @@
             </label>
             <input type="text" name="amount" size="6" value="{{ profile.amount }}">
         </div>
+        
         <div>
             <label>
                 First Payment
@@ -54,6 +56,7 @@
                 </div>
             </div>
         </div>
+        
         {% if profile.order.payment_method == "cc" %}
         <div class="ak-show-cc">
             <label>
@@ -66,10 +69,11 @@
                     Expiration {{ profile.display_expiration_date }}
                 </div>
                 <div>
-                   {% if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change credit card information</a>{% endif %}
+                   {%if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change credit card information</a>{% endif %}
                 </div>
             </div>
         </div>
+        
         <div class="ak-change-cc" style="display: none">
             <label for="card_num_{{ profile.id }}">
                 Credit Card Number
@@ -77,7 +81,7 @@
             <input id="card_num_{{ profile.id }}" type="text" name="card_num" disabled=true>
             <div class="ak-card_num-hosted"></div>
         </div>
-
+        
         <div class="ak-change-cc" style="display: none">
             <label for="exp_date_{{ profile.id }}">
                 Expiration Date
@@ -85,7 +89,7 @@
             <input id="exp_date_{{ profile.id }}" type="text" name="exp_date" size="6" placeholder="MMYY" style="max-width: 33%" disabled=true>
             <div class="ak-exp_date-hosted"></div>
         </div>
-
+        
         <div class="ak-change-cc" style="display: none">
             <label for="card_code_{{ profile.id }}">
                 Verification Number
@@ -100,7 +104,7 @@
         <input type="hidden" name="payment_method" value="ach">
         <input type="hidden" name="first_name" value="{{ user.first_name }}">
         <input type="hidden" name="last_name" value="{{ user.last_name }}">
-
+        
         <div class="ak-show-cc">
             <label>
                 Bank Account
@@ -112,7 +116,7 @@
                   {% endif %}
                 </div>
                 <div>
-                   {% if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change bank information</a>{% endif %}
+                   {%if not profile.is_import_stub %} <a href="#" onclick="return ak_recurring_change_card('{{ profile.id }}');">Change bank information</a>{% endif %}
                 </div>
             </div>
         </div>
@@ -176,7 +180,9 @@
                     {% endif %}
                 </div>
             </div>
-
+    
+            {% if pp.recurring_update_supports_address %}
+    
             <div class="ak-change-address" style="display: none">
               {% if not profile.is_ach %}
                 <div style="text-align: center">
@@ -192,7 +198,7 @@
                     <input type="hidden" name="required" value="address1"/>
                     {% endif %}
                 </div>
-
+    
                 <div>
                     <label for="id_city_{{ profile.id }}">
                         City
@@ -202,7 +208,7 @@
                     <input type="hidden" name="required" value="city"/>
                     {% endif %}
                 </div>
-
+        
                 <div class="state_select_box">
                     <label>
                         State
@@ -212,7 +218,7 @@
                     <input type="hidden" name="required" value="state"/>
                     {% endif %}
                 </div>
-
+    
                 <div>
                     <label for="id_zip_{{ profile.id }}">
                         ZIP Code
@@ -229,13 +235,14 @@
                     </label>
                     <input name="region" id="id_region_{{ profile.id }}" type="text" value="{{ profile.order.user_detail.region }}" disabled=true>
                 </div>
+    
                 <div>
                     <label for="id_postal_{{ profile.id }}">
                         Postal
                     </label>
                     <input name="postal" id="id_postal_{{ profile.id }}" type="text" value="{{ profile.order.user_detail.postal }}" disabled=true>
                 </div>
-
+    
                 <div class="country_select_box">
                     <label>
                         Country
@@ -256,7 +263,8 @@
                   });
                 </script>
             </div>
-
+    
+            {% endif %}
         {% endif %}
 
         {% if profile.is_ach %}
@@ -276,6 +284,7 @@
 {% if pp.use_vzero %}
 <script>
 initVZeroForForm('#change_profile_{{ profile.id }}', '{{ pp.client_token }}', {% if profile.is_ach %}true{% else %}false{% endif %}, {% if pp.use_3d_secure %}true, '{{profile.payment_nonce_info.nonce}}', '{{profile.payment_nonce_info.bin}}'{% else %}false, '', ''{% endif %});
+
 var ownership_type_menu = $('#change_profile_{{ profile.id }} [name=ownership_type]');
 if (ownership_type_menu.length) {
     ownership_type_menu.change(function() {
@@ -291,7 +300,7 @@ if (ownership_type_menu.length) {
 {% if pp.use_vgs %}
 <script>
    var $akForm = $('#change_profile_{{profile.id}}');
-   var vgsOptions = {form: $akForm[0], token: '{{pp.client_token}}',
+   var vgsOptions = {form: $akForm[0], token: '{{pp.client_token}}', 
                      rawFieldSelectors: ['#card_num_{{profile.id}}', '#card_code_{{profile.id}}'],
                      fields: [{selector: '#' + $akForm[0].id + ' .ak-card_num-hosted',
                          name: 'card_num', type: 'card-number',
@@ -301,7 +310,7 @@ if (ownership_type_menu.length) {
    if ($akForm.find('input[name=card_code]').length){
        vgsOptions.fields.push({selector: '#' + $akForm[0].id + ' .ak-card_code-hosted',
                   name: 'card_code', type: 'card-security-code',
-                  placeholder: '', fontSize: '15.5px',
+                  placeholder: '', fontSize: '15.5px', 
                   color: 'black', successColor: 'green',
                   errorColor: '#d00'});
    }
