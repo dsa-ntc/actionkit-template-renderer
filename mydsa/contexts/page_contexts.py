@@ -13,6 +13,9 @@ contexts = {
                 "thank_you_text": "<p>Thanks!</p>",
             },
         },
+        "login.html" : {
+            "filename": "login.html",
+        },
         "logout.html": {
             "filename": "logout.html",
         },

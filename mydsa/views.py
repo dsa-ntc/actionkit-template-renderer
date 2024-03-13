@@ -88,9 +88,9 @@ def index(request, name=None, page=None):
 # use db config instead of context.json
 def index_db(request, name=None, page=None):
     cxt = _get_context_data(request, name, page)
-    print("CONTEXT")
-    account_context = cxt if cxt.get("filename") == "recurring_update.html" else {}
-    print(account_context)
+    # print("CONTEXT")
+    # account_context = cxt if cxt.get("filename") == "recurring_update.html" else {}
+    # print(account_context)
     template = request.GET.get("template", cxt.get("filename", "homepagetest.html"))
 
     return render(request, template, cxt)
