@@ -60,6 +60,20 @@ class SetVarNode(Node):
         return ""
 
 
+class CompareAndSetVarNode(Node):
+    def __init__(self, var_name, attr, attr_list, compare_val):
+        self.var_name = var_name
+        self.attr = attr
+        self.attr_list = attr_list
+        self.compare_val = compare_val
+    
+    def render(self, context):
+        val = Variable(self.compare_val).resolve(context)
+        set_val = val in [ls[self.attr] for ls in context.get(self.attr_list)]
+        context[self.var_name] = val if set_val else None
+        return ""
+
+
 class RecordNode(Node):
     def __init__(self, item, ary, reportresult=False):
         self.item = Variable(item)
@@ -111,6 +125,16 @@ def record(parser, token):
 def remember(parser, token):
     tokens = token.split_contents()
     return SetVarNode(tokens[3], tokens[1])
+
+
+@register.tag
+def set_matching_var(parser, token):
+    tokens = token.split_contents()
+    var_name = tokens[1]
+    attr = tokens[3]
+    ls = tokens[5]
+    compare_val = tokens[7]
+    return CompareAndSetVarNode(var_name, attr, ls, compare_val)
 
 
 @register.tag

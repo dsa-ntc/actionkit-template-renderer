@@ -259,6 +259,7 @@ contexts = {
             }
         ],
         "inactive": [],
+        "args": {"recurring_id": "123"},
     },
     "recurring_update_paypal": {
         "filename": "recurring_update.html",
