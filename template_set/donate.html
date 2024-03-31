@@ -278,7 +278,7 @@
             {% remember 1 as this_page_manages_memberships %}
         {% endif %}
     {% endfor %}
-    {% if this_page_manages_memberships == "1" %}
+    {% if this_page_manages_memberships %}
         {% include "./custom_membership.html" %}
     {% else %}
         <form id="act" name="act" class="{{ templateset.custom_fields.donation_steps }}" method="POST" action="/act/" accept-charset="utf-8">
